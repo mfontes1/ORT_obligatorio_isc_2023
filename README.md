@@ -20,11 +20,11 @@ add them to the cart, and purchase them.
 
 | Home Page                                                                                                         | Checkout Screen                                                                                                    |
 | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| [![Screenshot of store homepage](./docs/img/online-boutique-frontend-1.png)](./docs/img/online-boutique-frontend-1.png) | [![Screenshot of checkout screen](./docs/img/online-boutique-frontend-2.png)](./docs/img/online-boutique-frontend-2.png) |
+| [![Screenshot of store homepage](.docs/img/maxresdefault.jpg)](.docs/img/maxresdefault.jpg) | [![Screenshot of checkout screen](.docs/img/maxresdefault.jpg)](.docs/img/maxresdefault.jpg) |
 
 ## Architecture
 
-**Online Boutique** is composed of 11 microservices written in different
+**Trabajo Obligatorio (Editar luego)** is composed of 11 microservices written in different
 languages that talk to each other over gRPC. See the [Development Principles](/docs/development-principles.md) doc for more information.
 
 [![Architecture of
