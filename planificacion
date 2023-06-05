@@ -1,0 +1,47 @@
+Planificación:
+
+Para desarrollar una infraestructura automatizada en AWS utilizando Terraform y diseñar una arquitectura de microservicios para e-commerce con Docker y Kubernetes, seguimos la siguiente planificación
+
+Planificación de la infraestructura:
+
+Identificamos los requisitos y componentes necesarios para la arquitectura de microservicios de e-commerce.
+Determinamos los recursos de AWS que consideramos necesarios, esto incluyen instancias EC2, grupos de seguridad, balanceadores de carga, bases de datos, etc.
+
+Configuración de Terraform:
+Instalamos Terraform en el entorno de desarrollo.
+Creamos un directorio de trabajo para el proyecto de infraestructura.
+Definimos los archivos de configuración de Terraform (por ejemplo, main.tf, variables.tf, terraform.tfvars) en el directorio de trabajo.
+
+Configuración de AWS:
+Configuramos las credenciales de AWS en el entorno local para que Terraform pueda interactuar con la cuenta de AWS.
+
+Definición de la topología de red:
+Diseñamos la topología de red para los microservicios. Esto incluye la creación de VPCs, subredes públicas y privadas, grupos de seguridad, tablas de enrutamiento, etc.
+
+Despliegue de la infraestructura:
+Usamos Terraform para crear los recursos de AWS necesarios según la topología de red definida y otros componentes requeridos.
+Definimos y utilizamos módulos de Terraform para estructurar y reutilizar el código.
+Verificamos que la infraestructura se haya desplegado correctamente.
+
+Configuración de Docker y Docker-compose:
+Instalamos Docker en las instancias EC2 y en la máquina local.
+Creamos un clúster de Kubernetes utilizando la solución de orquestación de Amazon EKS.
+Configuramos las herramientas y servicios necesarios para interactuar con el clúster de Kubernetes, como kubectl.
+
+Empaquetado y despliegue de microservicios:
+Creamos contenedores Docker para los microservicios e incluimos los archivos de configuración necesarios.
+Configuramos y desplegamos  los microservicios en el clúster de Kubernetes utilizando los archivos de definición de Kubernetes (como YAML).
+
+Configuración del equilibrio de carga y escalado:
+Configuramos el balanceo de carga para distribuir el tráfico entre los microservicios.
+Utilizamos las capacidades de autoescalado de Kubernetes y AWS para adaptar la capacidad de los microservicios según la carga.
+
+##Ver si podemos hacer esto::
+Monitoreo y registro: (savix)
+Configuramos una herramienta de monitoreo y registro,  CloudWatch, para recopilar métricas y registros de los microservicios y la infraestructura subyacente.
+Utilizamos herramientas de visualización de métricas y registros para analizar el rendimiento y solucionar problemas.
+
+Pruebas y seguridad:
+Realizamos pruebas exhaustivas de los microservicios y la infraestructura para garantizar la calidad y la seguridad.
+Implementamos prácticas de seguridad recomendadas, como la autenticación y autorización adecuadas, la protección de datos conf 
+
