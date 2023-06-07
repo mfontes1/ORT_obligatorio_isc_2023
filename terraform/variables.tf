@@ -27,15 +27,61 @@ variable "key_name_input" {
   
 }
 
-variable "instance_name_input" {
+variable "name_instance_input" {
   type = string
   description = "variable instanse_name"
 
 }
 
-##variable "vpc_cidr" {
-  ##type = string
-  ##description = "Variable para el CIDR block"
-##}
+variable "name_vpc_input" {
+  type = string
+  description = "variable vpc name"
+}
 
+variable "vpc_cidr_input" {
+  type = string
+  description = "variable vpc cidir block"
+  
+}
 
+variable "vpc_cidr1_input" {
+  type = string
+  description = "variable vpc cidir block"
+  
+}
+
+variable "vpc_cidr2_input" {
+  type = string
+  description = "variable vpc cidir block 2"
+  
+}
+
+variable "public_subnet1_input" {
+    type = string
+
+}
+
+variable "public_subnet2_input" {
+    type = string
+}
+
+variable "availability_zone" {
+    type = string
+  
+}
+
+variable "availability_zone2" {
+    type = string
+  
+}
+
+variable "sg_name_input" {
+    type = string
+  
+}
+
+#variable "security_groups_input" {
+    #type = string
+    #description = "Variable SG para LB"
+  
+#}
