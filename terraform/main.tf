@@ -4,6 +4,7 @@ module "obligatorio-module" {
     instance_type = var.instance_type_input
     key_name    = var.key_name_input
     name_instance = var.name_instance_input
+    name_instance2 = var.name_instance2_input
     name_vpc = var.name_vpc_input
     vpc_cidr = var.vpc_cidr_input
     vpc_cidr1 = var.vpc_cidr1_input
@@ -16,6 +17,8 @@ module "obligatorio-module" {
  
     
 }
+
+
 
 output "dns-output" {
     value = module.obligatorio-module.dns

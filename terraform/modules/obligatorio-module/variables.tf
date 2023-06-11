@@ -16,6 +16,11 @@ variable "name_instance" {
     type = string
 }
 
+
+variable "name_instance2" {
+    type = string
+}
+
 variable "name_vpc" {
     type = string
   

@@ -33,6 +33,12 @@ variable "name_instance_input" {
 
 }
 
+variable "name_instance2_input" {
+  type = string
+  description = "variable instanse_name 2"
+
+}
+
 variable "name_vpc_input" {
   type = string
   description = "variable vpc name"

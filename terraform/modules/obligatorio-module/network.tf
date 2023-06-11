@@ -8,55 +8,6 @@ resource "aws_vpc" "vpc_obligatorio" {
   }
 }
 
-resource "aws_security_group" "web_lb_sg" {
-  name        = var.sg_name
-  description = "Security group for the web load balancer"
-  vpc_id      = aws_vpc.vpc_obligatorio.id 
-
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  # Otras reglas de ingreso si es necesario
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name = "web-lb-sg"
-  }
-}
-
-resource "aws_instance" "module-web1-instance-deploy" {
-    instance_type          = var.instance_type
-    key_name               = var.key_name
-    ami                    = var.ami
-    vpc_security_group_ids = [aws_security_group.web_lb_sg.id]
-    subnet_id              = aws_subnet.pub_subnet1_obligatorio.id
-    availability_zone      = var.vpc_aws_az
-    tags = {
-        Name = var.name_instance
-    }
-}
-
-resource "aws_instance" "module-web2-instance-deploy" {
-    instance_type          = var.instance_type
-    key_name               = var.key_name
-    ami                    = var.ami
-    vpc_security_group_ids = [aws_security_group.web_lb_sg.id]
-    subnet_id              = aws_subnet.pub_subnet2_obligatorio.id 
-    availability_zone      = var.vpc_aws_az2  
-    tags = {
-        Name = var.name_instance
-    }
-}
 
 
 resource "aws_subnet" "pub_subnet1_obligatorio" {
@@ -87,6 +38,18 @@ resource "aws_internet_gateway" "web_lb_igw" {
   }
 }
 
+
+resource "aws_default_route_table" "oblig-route-table" {
+  default_route_table_id = aws_vpc.vpc_obligatorio.default_route_table_id
+  route {
+    cidr_block = "0.0.0.0/0"  
+    gateway_id = aws_internet_gateway.web_lb_igw.id
+  }
+  tags = {
+    Name = "default route table"
+  }
+}
+
 resource "aws_route" "web_lb_route" {
   route_table_id         = aws_vpc.vpc_obligatorio.main_route_table_id
   destination_cidr_block = "0.0.0.0/0"
@@ -104,9 +67,6 @@ resource "aws_lb" "web_lb" {
     Name = "web-lb"
   }
 }
-
-
-
 
 resource "aws_lb_listener" "web_listener" {
   load_balancer_arn = aws_lb.web_lb.arn
