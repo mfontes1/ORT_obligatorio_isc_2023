@@ -24,12 +24,14 @@ resource "aws_instance" "module-web1-instance-deploy" {
         #"sudo sed -i 's#root /usr/share/nginx/html;#root /usr/share/nginx/html; index index.html;#' /etc/nginx/nginx.conf",       
         #"sudo systemctl enable nginx",
         #"sudo systemctl start nginx",
-        "sudo yum install -y httpd git docker curl",
+        
+        "sudo yum install -y git docker curl",
         "git clone https://github.com/mfontes1/ORT_obligatorio_isc_2023.git",
-        "sudo mv ORT_obligatorio_isc_2023/docs/img/maxresdefault.jpg /var/www/html/",
-        "sudo systemctl enable httpd docker",
-        "sudo systemctl start httpd docker",
+        #"sudo mv ORT_obligatorio_isc_2023/docs/img/maxresdefault.jpg /var/www/html/",
+        "sudo systemctl start docker",
+        "sudo systemctl enable  docker",
         "sudo usermod -aG docker ec2-user",
+        "sudo amazon-linux-extras install -y nginx1",
 
   ]
 }
@@ -63,12 +65,14 @@ resource "aws_instance" "module-web2-instance-deploy" {
         #"sudo sed -i 's#root /usr/share/nginx/html;#root /usr/share/nginx/html; index index.html;#' /etc/nginx/nginx.conf",
         #"sudo systemctl start nginx",
         #"sudo systemctl enable nginx",
-        "sudo yum install -y httpd git curl",
+        
+        "sudo yum install -y git docker curl",
         "git clone https://github.com/mfontes1/ORT_obligatorio_isc_2023.git",
-        "sudo mv ORT_obligatorio_isc_2023/docs/img/maxresdefault.jpg /var/www/html/",
-        "sudo systemctl enable httpd docker",
-        "sudo systemctl start httpd docker",
+        #"sudo mv ORT_obligatorio_isc_2023/docs/img/maxresdefault.jpg /var/www/html/",
+        "sudo systemctl start docker",
+        "sudo systemctl enable  docker",
         "sudo usermod -aG docker ec2-user",
+        "sudo amazon-linux-extras install -y nginx1",
        ]
     }    
     tags = {
@@ -93,7 +97,8 @@ resource "aws_instance" "module-cache-instance-deploy" {
     inline = [
         
         #"sudo yum update",
-        #"sudo yum install -y nginx git curl",
+        #"sudo amazon-linux-extras install -y nginx1",
+        #"sudo yum install -y  git curl",
         #"sudo git clone https://github.com/mauricioamendola/chaos-monkey-app.git /tmp/chaos-monkey-app",
         #"sudo mv /usr/share/nginx/html /usr/share/nginx/html_backup",
         #"sudo cp -r /tmp/chaos-monkey-app /usr/share/nginx/html",
