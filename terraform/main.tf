@@ -1,5 +1,5 @@
-module "obligatorio-module" {
-    source = "./modules/obligatorio-module"
+module "dev_deploy_isc" {
+    source = "./modules/dev_deploy_isc"
     ami = var.ami_input
     instance_type = var.instance_type_input
     key_name    = var.key_name_input
@@ -21,7 +21,7 @@ module "obligatorio-module" {
 
 
 output "dns-output" {
-    value = module.obligatorio-module.dns
+    value = module.dev_deploy_isc
 }
 
  
