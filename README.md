@@ -11,8 +11,8 @@
 > of Log4j 2, we have taken down all affected container images. We highly recommend all demos and forks to now
 > use images from releases [>= v0.3.4](https://github.com/GoogleCloudPlatform/microservices-demo/releases).
 
-**TRABAJO OBLIGATORIO** is a cloud-native microservices demo application.
-Online Boutique consists of a 10-tier microservices application. The application is a
+**MJ Sports** is a cloud-native microservices demo application.
+MJ Sports consists of a 10-tier microservices application. The application is a
 web-based e-commerce app where users can browse items,
 add them to the cart, and purchase them.
 
