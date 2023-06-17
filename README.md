@@ -11,10 +11,20 @@
 > of Log4j 2, we have taken down all affected container images. We highly recommend all demos and forks to now
 > use images from releases [>= v0.3.4](https://github.com/GoogleCloudPlatform/microservices-demo/releases).
 
-**MJ Sports** is a cloud-native microservices demo application.
-MJ Sports consists of a 10-tier microservices application. The application is a
-web-based e-commerce app where users can browse items,
-add them to the cart, and purchase them.
+The application MJ Sports is a demo of a cloud-native microservices architecture. It is made of an 11-tier microservices application, 
+which is a sophisticated web-based e-commerce platform. Whithin this platform, customers experience a seamless shopping experience,
+allowing them to browse through a wide range of sports items. While browsing through the application, customeres will be able to add desired
+products to their shopping cart, and complete their purchases securily and easily. 
+With this application, MJ Sports satisfies the needs of their customers and provide them with a user-friendly interface. 
+This technology also permits scalability, resilience and the agility that's so much needed in modern applications' development.
+
+La aplicación MJ Sports es una demostración de una arquitectura de microservicios nativa de la nube. Está compuesta por una aplicación
+de microservicios de 11 niveles, la cual es una sofisticada plataforma de comercio electrónico basada en la web. Dentro de esta plataforma,
+los clientes experimentan una experiencia de compra sin problemas, lo que les permite navegar por una amplia gama de artículos deportivos.
+Mientras navegan por la aplicación, los clientes podrán agregar los productos deseados a su carrito de compras y completar sus compras de
+forma segura y fácil. Con esta aplicación, MJ Sports satisface las necesidades de sus clientes y les proporciona una interfaz fácil de usar.
+Esta tecnología también permite la escalabilidad, resiliencia y la agilidad que son tan necesarias en el desarrollo de aplicaciones modernas.
+
 
 ## Screenshots
 
@@ -24,7 +34,7 @@ add them to the cart, and purchase them.
 
 ## Architecture
 
-**Trabajo Obligatorio (Editar luego)** is composed of 11 microservices written in different
+**MJ Sports** is composed of 11 microservices written in different
 languages that talk to each other over gRPC. See the [Development Principles](/docs/development-principles.md) doc for more information.
 
 [![Architecture of
