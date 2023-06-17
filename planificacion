@@ -22,12 +22,12 @@ Verificamos que la infraestructura se haya desplegado correctamente.
 
 Configuración de Docker y Docker-compose:
 Instalamos Docker en las instancias EC2 y en la máquina local.
-Creamos un clúster de Kubernetes utilizando la solución de orquestación de Amazon EKS.
-Configuramos las herramientas y servicios necesarios para interactuar con el clúster de Kubernetes, como kubectl.
+
+
 
 Empaquetado y despliegue de microservicios:
 Creamos contenedores Docker para los microservicios e incluimos los archivos de configuración necesarios.
-Configuramos y desplegamos  los microservicios en el clúster de Kubernetes utilizando los archivos de definición de Kubernetes (como YAML).
+ (como YAML).
 
 Configuración del equilibrio de carga y escalado:
 Configuramos el balanceo de carga para distribuir el tráfico entre los microservicios.
