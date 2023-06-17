@@ -34,8 +34,14 @@ Esta tecnología también permite la escalabilidad, resiliencia y la agilidad qu
 
 ## Architecture
 
-**MJ Sports** is composed of 11 microservices written in different
-languages that talk to each other over gRPC. See the [Development Principles](/docs/development-principles.md) doc for more information.
+MJ Sports consists of 11 microservices implemented in various programming languages, these different languages communicate with each other trhough gRPC.
+gRPC is designed to facilitate the communication between different services in a distributed environment, and it supports several different programming languages.
+
+MJ Sports está compuesto por 11 microservicios implementados en varios lenguajes de programación. Estos diferentes lenguajes se comunican entre sí a través de gRPC.
+gRPC está diseñado para facilitar la comunicación entre diferentes servicios en un entorno distribuido, y admite varios lenguajes de programación diferentes.
+
+To learn more about the project's development principles, please refer to the documentation available in the Development Principles document.
+
 
 [![Architecture of
 microservices](./docs/img/architecture-diagram.png)](./docs/img/architecture-diagram.png)
