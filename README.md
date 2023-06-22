@@ -1,5 +1,5 @@
 <p align="center">
-<img src="src/frontend/static/icons/maxresdefault.jpg" width="300" alt="Online Boutique" />
+<img src="src/frontend/static/icons/maxresdefault.jpg" width="300" alt="MJ Sports" />
   
 </p>
 
