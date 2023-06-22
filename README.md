@@ -23,7 +23,7 @@ Esta tecnología también permite la escalabilidad, resiliencia y la agilidad qu
 
 | Home Page                                                                                                         | Checkout Screen                                                                                                    |
 | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| [![Screenshot of store homepage](.docs/img/maxresdefault.jpg)](.docs/img/MJSports-frontend-1.jpg) | [![Screenshot of checkout screen](.docs/img/maxresdefault.jpg)](.docs/img/maxresdefault.jpg) |
+| [![Screenshot of store homepage](docs/img/maxresdefault.jpg)](.docs/img/MJSports-frontend-1.jpg) | [![Screenshot of checkout screen](.docs/img/maxresdefault.jpg)](.docs/img/maxresdefault.jpg) |
 
 ## Arquitectura
 
