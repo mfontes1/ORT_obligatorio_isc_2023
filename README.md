@@ -19,13 +19,13 @@ forma segura y fácil. Con esta aplicación, MJ Sports satisface las necesidades
 Esta tecnología también permite la escalabilidad, resiliencia y la agilidad que son tan necesarias en el desarrollo de aplicaciones modernas.
 
 
-## Screenshots
+## Imágenes
 
 | Home Page                                                                                                         | Checkout Screen                                                                                                    |
 | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
 | [![Screenshot of store homepage](.docs/img/maxresdefault.jpg)](.docs/img/maxresdefault.jpg) | [![Screenshot of checkout screen](.docs/img/maxresdefault.jpg)](.docs/img/maxresdefault.jpg) |
 
-## Architecture
+## Arquitectura
 
 MJ Sports está compuesto por 11 microservicios implementados en varios lenguajes de programación. Estos diferentes lenguajes se comunican entre sí a través de gRPC.
 gRPC está diseñado para facilitar la comunicación entre diferentes servicios en un entorno distribuido, y admite varios lenguajes de programación diferentes.
