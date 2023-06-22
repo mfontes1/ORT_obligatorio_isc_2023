@@ -6,11 +6,6 @@
 
 ![Continuous Integration](https://github.com/GoogleCloudPlatform/microservices-demo/workflows/Continuous%20Integration%20-%20Main/Release/badge.svg)
 
-> **⚠ ATTENTION: Apache Log4j 2 advisory.**  
-> Due to [vulnerabilities](https://cloud.google.com/log4j2-security-advisory) present in earlier versions
-> of Log4j 2, we have taken down all affected container images. We highly recommend all demos and forks to now
-> use images from releases [>= v0.3.4](https://github.com/GoogleCloudPlatform/microservices-demo/releases).
-
 La aplicación MJ Sports es una demostración de una arquitectura de microservicios nativa de la nube. Está compuesta por una aplicación
 de microservicios de 11 niveles, la cual es una sofisticada plataforma de comercio electrónico basada en la web. Dentro de esta plataforma,
 los clientes experimentan una experiencia de compra sin problemas, lo que les permite navegar por una amplia gama de artículos deportivos.
