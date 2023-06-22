@@ -36,7 +36,7 @@ microservices](./docs/img/architecture-diagram.png)](./docs/img/architecture-dia
 
 Find **Protocol Buffers Descriptions** at the [`./pb` directory](./pb).
 
-| Service                                              | Language      | Description                                                                                                                       |
+| Servicio                                             | Lenguaje      | Descripción                                                                                                                       |
 | ---------------------------------------------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------- |
 | [frontend](./src/frontend)                           | Go            | Expone a un servidor HTTP que sirve al sitio web. No requiere registro/inicio de sesión y genera sesiones automáticamente para todos los usuarios. |
 | [cartservice](./src/cartservice)                     | C#            | Almacena en Redis los artículos en el carrito de compras del cliente y los recupera.                                              |
