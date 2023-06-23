@@ -45,5 +45,5 @@ Find **Protocol Buffers Descriptions** at the [`./pb` directory](./pb).
 | [adservice](./src/adservice)                         | Java          | Proporciona anuncios basados en el contexto de las palabras proporcionadas.                                                       |
 | [loadgenerator](./src/loadgenerator)                 | Python/Locust | Envía solicitudes continuamente imitando flujos reales de compras de usuarios al frontend.                                        |
 
-                                                                                            ![Diagrama de Arquitectura](/docs/img/Diagrama_arquitectura.png)
+                                                                                            ![Diagrama de Arquitectura](docs/img/Diagrama_arquitectura.png)
                                                               
