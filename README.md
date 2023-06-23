@@ -43,11 +43,16 @@ Find **Protocol Buffers Descriptions** at the [`./pb` directory](./pb).
 | [checkoutservice](./src/checkoutservice)             | Go            | Recupera el carrito del cliente, prepara el pedido, coordina el pago y envío, y envía la notificación for correo electrónico.     |
 | [recommendationservice](./src/recommendationservice) | Python        | Recomienda otros productos basado en lo que hay en el carrito.                                                                    |
 | [adservice](./src/adservice)                         | Java          | Proporciona anuncios basados en el contexto de las palabras proporcionadas.                                                       |
-| [loadgenerator](./src/loadgenerator)                 | Python/Locust | Envía solicitudes continuamente imitando flujos reales de compras de usuarios al frontend.                                        |
+| [loadgenerator](./src/loadgenerator)                 | Python/Locust | Envía solicitudes continuamente imitando flujos reales de compras de usuarios al frontend.                                 
 
-| Diagrama de Arquitectura                                                                                          |
-| ----------------------------------------------------------------------------------------------------------------- | 
-| [![Diagrama de Arquitectura](docs/img/Diagrama_arquitectura.png)  
+
+
+| Diagrama de Arquitectura                                                                                          |    
+| ----------------------------------------------------------------------------------------------------------------- |  
+| [![Diagrama de Arquitectura](docs/img/Diagrama_arquitectura.png)  La infraestructura creada es simple, escalable, robusta y cumple con las necesidades del cliente. 
+Está compuesta por un LB (load balancer) que distribuye la carga de trabajo de manera eficiente hacia las instancias y garantiza un rendimiento óptimo, así como también alta disponibilidad. 
+Dos instancias EC2 que contiene todos los servidores de la aplicación y los microservicios.
+Además, se usó un Redis en cada instancia, los que están asociados a un share NFS con el objetivo de compartir y sincronizar datos utilizados por las dos instancias de Redis. 
                                
 
 La infraestructura creada es simple, escalable, robusta y cumple con las necesidades del cliente. 
