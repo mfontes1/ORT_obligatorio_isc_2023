@@ -53,9 +53,9 @@ Está compuesta por un LB (load balancer) que distribuye la carga de trabajo de 
 Dos instancias EC2 que contiene todos los servidores de la aplicación y los microservicios.
 Además, se usó un Redis en cada instancia, los que están asociados a un share NFS con el objetivo de compartir y sincronizar datos utilizados por las dos instancias de Redis.
 
-| Diagrama de Arquitectura                                                                                          |    
-| ----------------------------------------------------------------------------------------------------------------- |   
-| [![Diagrama de Arquitectura](docs/img/Diagrama_arquitectura.png)                              
+      | Diagrama de Arquitectura                                                                                          |    
+      | ----------------------------------------------------------------------------------------------------------------- |   
+      | [![Diagrama de Arquitectura](docs/img/Diagrama_arquitectura.png)                              
                                                                                         
 Se usa Terraform para la automatización del despliegue de la infraestructura, despliegue de las imágenes y de los contenedores. (Si no automatizamos todo, sacamos lo que no se haga)
 
