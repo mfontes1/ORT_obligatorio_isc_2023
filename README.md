@@ -63,6 +63,11 @@ Se usa Terraform para la automatización del despliegue de la infraestructura, d
 
 La estructura de Terraform para este proyecto se ve como se muestra en la foto.
 
+<h2 align="center">Estructura del Proyecto</h2>
+   
+<p align="center">
+ <img src="docs/img/Estructura_proyecto.png" alt="Estructura del Proyecto">
+</p>
 
 
 | Estructura del Proyecto                                                                                           |    
