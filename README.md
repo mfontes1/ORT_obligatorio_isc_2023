@@ -57,13 +57,9 @@ Además, se usó un Redis en cada instancia, los que están asociados a un share
  | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |   
  | [![Diagrama de Arquitectura](docs/img/Diagrama_arquitectura.png)                              
 
-
-![Diagrama de 
-Arquitectura](./docs/img/Diagrama_arquitectura.png)(./docs/img/Diagrama_arquitectura.png)                                                                             
-
-
-
-
+<p align="center">
+ <img src="docs/img/Diagrama_arquitectura.png" alt="Diagrama de Arquitectura">
+</p>
                                                                                         
 Se usa Terraform para la automatización del despliegue de la infraestructura, despliegue de las imágenes y de los contenedores. (Si no automatizamos todo, sacamos lo que no se haga)
 
