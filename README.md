@@ -45,9 +45,9 @@ Find **Protocol Buffers Descriptions** at the [`./pb` directory](./pb).
 | [adservice](./src/adservice)                         | Java          | Proporciona anuncios basados en el contexto de las palabras proporcionadas.                                                       |
 | [loadgenerator](./src/loadgenerator)                 | Python/Locust | Envía solicitudes continuamente imitando flujos reales de compras de usuarios al frontend.                                        |
 
-| Diagrama de Arquitectura                                                                                           | Diagrama de Arquitectura                                                                                                   |
-| ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| [![Diagrama de Arquitectura](docs/img/Diagrama_arquitectura.png) | [![Screenshot of checkout screen](docs/img/MJSports-frontend-2.jpg) 
+| Diagrama de Arquitectura                                                                                          |
+| ----------------------------------------------------------------------------------------------------------------- | 
+| [![Diagrama de Arquitectura](docs/img/Diagrama_arquitectura.png)  
                                
 
 La infraestructura creada es simple, escalable, robusta y cumple con las necesidades del cliente. 
