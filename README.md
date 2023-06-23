@@ -58,8 +58,8 @@ Además, se usó un Redis en cada instancia, los que están asociados a un share
  | [![Diagrama de Arquitectura](docs/img/Diagrama_arquitectura.png)                              
 
 
-[![Architecture of
-microservices](./docs/img/architecture-diagram.png)](./docs/img/architecture-diagram.png)
+[![Diagrama de Arquitectura
+](./docs/img/Diagrama_arquitectura.png)](./docs/img/Diagrama_arquitectura.png)
 
 
 
