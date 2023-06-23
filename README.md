@@ -53,7 +53,7 @@ Está compuesta por un LB (load balancer) que distribuye la carga de trabajo de 
 Dos instancias EC2 que contiene todos los servidores de la aplicación y los microservicios.
 Además, se usó un Redis en cada instancia, los que están asociados a un share NFS con el objetivo de compartir y sincronizar datos utilizados por las dos instancias de Redis.
 
-<h1 align="center">Diagrama de Arquitectura</h1>
+<h2 align="center">Diagrama de Arquitectura</h2>
    
 <p align="center">
  <img src="docs/img/Diagrama_arquitectura.png" alt="Diagrama de Arquitectura">
