@@ -58,7 +58,17 @@ Además, se usó un Redis en cada instancia, los que están asociados a un share
 | [![Diagrama de Arquitectura](docs/img/Diagrama_arquitectura.png)                              
                                                                                         
 Se usa Terraform para la automatización del despliegue de la infraestructura, despliegue de las imágenes y de los contenedores. (Si no automatizamos todo, sacamos lo que no se haga)
+
 La estructura de Terraform para este proyecto se ve como se muestra en la foto.
+
+
+
+| Diagrama de Arquitectura                                                                                          |    
+| ----------------------------------------------------------------------------------------------------------------- |   
+| [![Diagrama de Arquitectura](docs/img/Diagrama_arquitectura.png)    
+
+
+
 En la raíz del directorio “terraform” se encuentran los archivos main.tf, provider.tf, terraform.tfstate y el backup, valores.tfvars y variables.tf.
 En el main.tf se realizó la parametrización de todos los datos como source, ami, instance type, name instance, name vpc, vpc cidr, public subnets, las AZ y los nombres de los security groups.
 La parametrización es beneficiosa porque si se requiere un cambio en los datos, se va al archivo valores.tfvars, se hace el cambio y luego ese cambio se replica en todos los archivos relacionados. 
