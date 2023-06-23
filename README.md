@@ -55,8 +55,7 @@ Además, se usó un Redis en cada instancia, los que están asociados a un share
 
  | Diagrama de Arquitectura                                                                                                                                           |    
  | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |   
- | [![Diagrama de Arquitectura](docs/img/Diagrama_arquitectura.png)                              
-
+ 
 <p align="center">
  <img src="docs/img/Diagrama_arquitectura.png" alt="Diagrama de Arquitectura">
 </p>
