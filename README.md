@@ -65,7 +65,7 @@ La estructura de Terraform para este proyecto se ve como se muestra en la foto.
 
 | Estructura del Proyecto                                                                                           |    
 | ----------------------------------------------------------------------------------------------------------------- |   
-                                                | [![Diagrama de Arquitectura](docs/img/Estructura_proyecto.png)    
+| [![Diagrama de Arquitectura](docs/img/Estructura_proyecto.png)    
 
 
 
