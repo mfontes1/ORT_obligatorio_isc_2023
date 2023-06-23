@@ -88,12 +88,17 @@ Archivo variables.tf, contiene las variables que aplican al directorio modules, 
 Dentro de modules, también tenemos el directorio docker-compose, el cual contiene todos los microservicios que serán desplegados por docker-compose.
 
 Nota: se decidió utilizar docker-compose en lugar de Kubernetes por una serie de razones.
+
 1-	El proyecto no requiere un escalamiento masivo, por lo tanto, Docker satisface el nivel de escalamiento requerido y provee otras ventajas que hacen que valga la pena su uso. 
     Se adapta bien al tamaño del proyecto.
+    
 2-	Kubernetes es bastante más complejo. Docker es más simple en su uso. 
+
 3-	Las fallas en Docker son más fáciles de identificar, ya que contienen menos cosas que pueden fallar.
+
 4-	Los archivos de Docker son en texto plano y se pueden compartir fácilmente, en cambio los archivos de un despliegue de Kubernetes son almacenados en sus manifiestos que utilizan
     un formato más complejo.
+    
 
 Docker-compose contiene todos los servicios mencionados en la arquitectura del documento más arriba. Dentro de cada servicio hay un archivo que es importante, el Dockerfile. Se usa para crear imágenes, para instalar software, copiar archivos hasta configuraciones. Todo lo que se quiera modificar o actualizar se va a hacer desde este archivo.
 
