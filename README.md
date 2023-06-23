@@ -45,5 +45,9 @@ Find **Protocol Buffers Descriptions** at the [`./pb` directory](./pb).
 | [adservice](./src/adservice)                         | Java          | Proporciona anuncios basados en el contexto de las palabras proporcionadas.                                                       |
 | [loadgenerator](./src/loadgenerator)                 | Python/Locust | Envía solicitudes continuamente imitando flujos reales de compras de usuarios al frontend.                                        |
 
-                                                                                            ![Diagrama de Arquitectura](docs/img/Diagrama_arquitectura.png)
+La infraestructura creada es simple, escalable, robusta y cumple con las necesidades del cliente. 
+Está compuesta por un LB (load balancer) que distribuye la carga de trabajo de manera eficiente hacia las instancias y garantiza un rendimiento óptimo, así como también alta disponibilidad. 
+Dos instancias EC2 que contiene todos los servidores de la aplicación y los microservicios.
+Además, se usó un Redis en cada instancia, los que están asociados a un share NFS con el objetivo de compartir y sincronizar datos utilizados por las dos instancias de Redis. 
+                                                                                        
                                                               
