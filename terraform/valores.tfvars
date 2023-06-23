@@ -1,6 +1,6 @@
 region = "us-east-1"
 profile = "default"
-instance_type_input = "t2.micro"
+instance_type_input = "t2.medium"
 ami_input = "ami-03ededff12e34e59e"
 key_name_input = "vockey"
 name_instance_input = "Servidor-web1-parametrizado"

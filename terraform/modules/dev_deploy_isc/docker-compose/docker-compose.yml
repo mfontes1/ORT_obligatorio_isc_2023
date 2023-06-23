@@ -9,7 +9,18 @@ services:
     volumes:
       - ./frontend/data:/app/data
     environment:
-      - ENV_VARIABLE=value1 
+      - PRODUCT_CATALOG_SERVICE_ADDR=cartservice
+    depends_on:
+      - cartservice
+
+  cartservice:
+    build:
+      context: ./cartservice
+      dockerfile: Dockerfile
+    ports:
+      - 7070:7070
+    
+   
     
   adservice:
     build:

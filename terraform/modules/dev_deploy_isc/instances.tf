@@ -1,3 +1,5 @@
+
+
 resource "aws_instance" "module-web1-instance-deploy" {
     instance_type          = var.instance_type
     key_name               = var.key_name
@@ -7,8 +9,10 @@ resource "aws_instance" "module-web1-instance-deploy" {
     availability_zone      = var.vpc_aws_az
     user_data = <<-EOF
     #!/bin/bash
-    sudo yum update -y        
+    sudo yum update -y               
 EOF
+
+#verificar que el path de labsuser.pem coincida con el usuario que lo este ejecutando.
     connection {
       type = "ssh"
       user = "ec2-user"
@@ -17,25 +21,29 @@ EOF
     }
     provisioner "remote-exec" {
       inline = [
-        
-        "sudo yum install -y git curl docker",
+        "sudo amazon-linux-extras enable nginx1",
+        "sudo yum install -y git curl docker nginx",
+        "sudo systemctl enable nginx docker",
+        "sudo systemctl start nginx docker",
         "sudo curl -L \"https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)\" -o /usr/local/bin/docker-compose",
         "sudo chmod +x /usr/local/bin/docker-compose",
         "sudo usermod -aG docker ec2-user",
+        #"sudo newgrp docker",
         "cd /home/ec2-user/",
-        "sudo git clone https://github.com/mfontes1/ORT_obligatorio_isc_2023.git",      
-        "sudo systemctl enable docker",
-        "sudo systemctl start docker",
-        "cd /home/ec2-user/ORT_obligatorio_isc_2023/terraform/modules/dev_deploy_isc/docker-compose/",      
-        "docker-compose up -d"
-        
-                
-  ]
+        "git clone https://github.com/mfontes1/ORT_obligatorio_isc_2023.git",        
+  ] 
 }
+     provisioner "remote-exec" {
+      inline = [
+        "cd /home/ec2-user/ORT_obligatorio_isc_2023/terraform/modules/dev_deploy_isc/docker-compose/ && docker-compose up -d "
+  ]      
+}
+
 tags = {
         Name = var.name_instance
     }
 }
+
  
 resource "aws_instance" "module-web2-instance-deploy" {
     instance_type          = var.instance_type
@@ -46,9 +54,7 @@ resource "aws_instance" "module-web2-instance-deploy" {
     availability_zone      = var.vpc_aws_az2
     user_data     = <<-EOF
     #!/bin/bash
-    sudo yum update -y
-    
-     
+    sudo yum update -y         
   EOF
     connection {
       type = "ssh"
@@ -58,60 +64,69 @@ resource "aws_instance" "module-web2-instance-deploy" {
     }
     provisioner "remote-exec" {
       inline = [
-        "sudo yum install -y git curl docker",
+        "sudo amazon-linux-extras enable nginx1",
+        "sudo yum install -y git curl docker nginx",
+        "sudo systemctl enable nginx docker",
+        "sudo systemctl start nginx docker",
         "sudo curl -L \"https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)\" -o /usr/local/bin/docker-compose",
         "sudo chmod +x /usr/local/bin/docker-compose",
         "sudo usermod -aG docker ec2-user",
+        #"sudo newgrp docker",
         "cd /home/ec2-user/",
-        "sudo git clone https://github.com/mfontes1/ORT_obligatorio_isc_2023.git",        
-        "sudo systemctl enable docker",
-        "sudo systemctl start docker", 
-        #"cd home/ec2-user/ORT_obligatorio_isc_2023/terraform/modules/dev_deploy_isc/docker-compose/",     
-        #"docker-compose up -d"
-                
+        "git clone https://github.com/mfontes1/ORT_obligatorio_isc_2023.git", 
        ]
-    }    
+    } 
+    provisioner "remote-exec" {
+      inline = [
+        "cd /home/ec2-user/ORT_obligatorio_isc_2023/terraform/modules/dev_deploy_isc/docker-compose/ && docker-compose up -d "
+  ]      
+}   
     tags = {
         Name = var.name_instance2
     }
 }
 
-resource "aws_instance" "module-cache-instance-deploy" {
-    instance_type          = var.instance_type
-    key_name               = var.key_name
-    ami                    = var.ami
-    vpc_security_group_ids = [aws_security_group.web-SG.id]
-    subnet_id              = aws_subnet.pub_subnet1_obligatorio.id
-    availability_zone      = var.vpc_aws_az
-    user_data     = <<-EOF
+#resource "aws_instance" "module-cache-instance-deploy" {
+    #instance_type          = var.instance_type
+    #key_name               = var.key_name
+    #ami                    = var.ami
+    #vpc_security_group_ids = [aws_security_group.web-SG.id]
+    #subnet_id              = aws_subnet.pub_subnet1_obligatorio.id
+    #availability_zone      = var.vpc_aws_az
+    #user_data     = <<-EOF
     #!/bin/bash
-    sudo yum update -y
+    #sudo yum update -y
            
-  EOF
+  #EOF
 
-    connection {
-      type = "ssh"
-      user = "ec2-user"
-      private_key = file("/Users/marcio/Documents/ORT/Cloud/labsuser.pem")
-      host = self.public_ip
-    }
-    provisioner "remote-exec" {
-    inline = [        
-       "sudo yum install -y git curl docker",
-        "sudo curl -L \"https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)\" -o /usr/local/bin/docker-compose",
-        "sudo chmod +x /usr/local/bin/docker-compose",
-        "sudo usermod -aG docker ec2-user",
-        "cd /home/ec2-user/",
-        "sudo git clone https://github.com/mfontes1/ORT_obligatorio_isc_2023.git",
-        "sudo systemctl enable docker",
-        "sudo systemctl start docker",
-        #"cd ORT_obligatorio_isc_2023/terraform/modules/dev_deploy_isc/docker-compose/",      
-        #"docker-compose up -d" 
+    #connection {
+      #type = "ssh"
+      #user = "ec2-user"
+      #private_key = file("/Users/marcio/Documents/ORT/Cloud/labsuser.pem")
+      #host = self.public_ip
+    #}
+    #provisioner "remote-exec" {
+    #inline = [        
+       #"sudo amazon-linux-extras enable nginx1",
+        #"sudo yum install -y git curl docker nginx",
+        #"sudo systemctl enable nginx docker",
+        #"sudo systemctl start nginx docker",
+        #"sudo curl -L \"https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)\" -o /usr/local/bin/docker-compose",
+        #"sudo chmod +x /usr/local/bin/docker-compose",
+        #"sudo usermod -aG docker ec2-user",
+        #"sudo newgrp docker",
+        #"cd /home/ec2-user/",
+        #"git clone https://github.com/mfontes1/ORT_obligatorio_isc_2023.git", 
               
-  ]
-}
-tags = {
-        Name = "Instancia Super-Cache"
-    }
-}
+#  ]
+#}
+#    provisioner "remote-exec" {
+#      inline = [
+#        "cd /home/ec2-user/ORT_obligatorio_isc_2023/terraform/modules/dev_deploy_isc/docker-compose/ && docker-compose up -d "
+#  ]      
+#}   
+#tags = {
+#        Name = "Instancia Super-Cache"
+#    }
+#}
 
