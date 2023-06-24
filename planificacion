@@ -31,7 +31,6 @@ Creamos contenedores Docker para los microservicios e incluimos los archivos de 
 
 Configuración del equilibrio de carga y escalado:
 Configuramos el balanceo de carga para distribuir el tráfico entre los microservicios.
-Utilizamos las capacidades de autoescalado de Kubernetes y AWS para adaptar la capacidad de los microservicios según la carga.
 
 ##Ver si podemos hacer esto::
 Monitoreo y registro: (savix)
