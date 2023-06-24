@@ -48,9 +48,10 @@ Find **Protocol Buffers Descriptions** at the [`./pb` directory](./pb).
                              
 ## Descripcion de la infraestructura
 La infraestructura creada es simple, escalable, robusta y cumple con las necesidades del cliente. 
-Está compuesta por un LB (load balancer) que distribuye la carga de trabajo de manera eficiente hacia las instancias y garantiza un rendimiento óptimo, así como también alta disponibilidad. 
+Está compuesta por un VPC en zonas de disponibilidad (AZ),  donde cada una contiene una instancia EC2. Un LB (load balancer) [que tipo de LB?} que distribuye la carga de trabajo de manera eficiente hacia las instancias y garantiza un rendimiento óptimo, así como también alta disponibilidad. 
 Dos instancias EC2 que contiene todos los servidores de la aplicación y los microservicios. Un proxy reverso (Nginx) de alto rendimiento para recibir las solicitudes de los clientes y pasarlas a los servidores web, mejora la seguridad al evitar que la aplicacion esté expuesta a internet, y tambien mejora el rendimiento y la disponibilidad de la aplicacion. 
 Además, se usó un Redis en cada instancia, los que están asociados a un share NFS con el objetivo de compartir y sincronizar datos utilizados por las dos instancias de Redis.
+La redundancia es importante para asegurar la disponibilidad y continuidad del negocio, por lo tanto usaremos Auto-Scaling en las instancias... explicar que tipo elegimos y porque.
 
 <h2 align="center">Diagrama de Arquitectura</h2>
    
@@ -78,12 +79,15 @@ En valores.tfvars es donde se agregaron los valores de esas variables y es de do
 El archivo terraform.tfstate es muy importante y crítico para el funcionamiento de terraform, así que es importante mantenerlo seguro. Guarda estado actual de los recursos de esta infraestructura, incluyendo identificadores únicos de los recursos, configuraciones aplicadas, dependencias, entre otras cosas, que son necesarias ara administrar y actualizar la infraestructura de manera controlada. 
 Además, en la raíz de terraform, se encuentra el directorio modules el cual contiene los datos de la parametrización necesaria para el despliegue automatizado de la infraestructura. También dentro de modules tenemos archivos y directorios. 
 El directorio dev_deploy_isc contiene los archivos para el despliegue de la infraestructura.
-Archivo instances.tf, acá se indicaron las instancias que se van a crear. Si hay necesidad de crear más instancias se crearan en este archivo. Se crearon web1 y web2. Cada instancia se configuro para hacer lo mismo con mínimas variaciones. En el provisioner se configuró una serie de comandos que hacen lo siguiente,  instala Git, curl, Docker, luego instala docker-compose en su última versión, le da permisos al usuario y lo agrega al grupo Docker. Luego se mueve al directorio del usuario e instala el repositorio de git para luego habilitar e iniciar Docker. Finalmente se mueve al repositorio de Git para ejecutar Docker-compose. 
+Archivo instances.tf, acá se indicaron las instancias que se van a crear. Si hay necesidad de crear más instancias se crearan en este archivo. Se crearon web1 y web2. Cada instancia se configuro para hacer lo mismo con mínimas variaciones. En el provisioner se configuró una serie de comandos que hacen lo siguiente,  instala Git, curl, Docker, luego instala docker-compose en su última versión, le da permisos al archivo de Docker-compose y agrega al usuario "ec2-user" al grupo Docker. Luego se mueve al directorio home del usuario y comienza el clonado del repositorio.  
 
 Nota importante: para quien ejecute las instancias. En “connection”, se debe cambiar el path en el file para que apunte a la private_key de quien sea el ejecutante.
 
 Archivo network.tf, acá es donde se definieron los recursos de red, se parametrizaron los valores. Se definió la VPC, la subnet1 y 2, se definió el Gateway, la default route table para el VPC, también una ruta para el load balancer, se definió el load balancer con sus subnets 1 y 2 además del security group para el lb. Se definieron los listeners en puerto 80, HTTP, y la default action que responde con OK (código 200) si ninguna de las reglas se cumplen cuando recibe una solicitud. También se definió  el web target group, su puerto y protocolo y finalmente los attachments 1 y 2 para crear la asociación entre los grupos de destino y la instancia en el lb.
-Archivo security-groups.tf, contiene la configuración para definir y administrar los security groups. Se definieron las reglas de ingreso y salida para las instancias web 1 y 2 y el load balancer.
+Archivo security-groups.tf, contiene la configuración para definir y administrar los security groups. Se definieron las reglas de ingreso y salida para las instancias web 1 y 2 y el load balancer y el sitema NFS. Para las web permite acceso SSH en los puertos 22 y 80, para el LB en el purto 80 y para NFS en el puerto 2049 para TCP y UDP. (confirmar el NFS) 
+
+La seguridad se gestiona a través la autenticacion y autorizacion para garantizar el acceso de los usuarios correctos, con politicas IAM se asignaron los roles y permisos adecuados a los usuarios. Con Amazon S3 se gestionó la proteccion de datos sensibles con técnicas de cifrado y las comunicaciones se protegieron mediante el uso de protocolos seguros como HTTPS. El uso de firewalls tambien protege las comunicaciones y la configuracion de grupos de seguridad para controlar el trafico entrante y saliente.
+
 Archivo variables.tf, contiene las variables que aplican al directorio modules, que están definidas allí.
 Dentro de modules, también tenemos el directorio docker-compose, el cual contiene todos los microservicios que serán desplegados por docker-compose.
 
