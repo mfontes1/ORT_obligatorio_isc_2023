@@ -10,15 +10,15 @@ services:
       - ./frontend/data:/app/data
     environment:
       - PRODUCT_CATALOG_SERVICE_ADDR=cartservice
-    depends_on:
-      - cartservice
+#    depends_on:
+#      - cartservice
 
-  cartservice:
-    build:
-      context: ./cartservice
-      dockerfile: Dockerfile
-    ports:
-      - 7070:7070
+#  cartservice:
+#    build:
+#      context: ./cartservice
+#    ports:
+ #     - 7070:7070
+##      dockerfile: Dockerfile
     
    
     
@@ -30,6 +30,4 @@ services:
       - 9555:9555
     depends_on:
       - frontend
-    environment:
-      - ANOTHER_ENV_VARIABLE=value2
-
+    

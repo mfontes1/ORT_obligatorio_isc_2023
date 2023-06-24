@@ -4,7 +4,7 @@ resource "aws_instance" "module-web1-instance-deploy" {
     instance_type          = var.instance_type
     key_name               = var.key_name
     ami                    = var.ami
-    vpc_security_group_ids = [aws_security_group.web-SG.id]
+    vpc_security_group_ids = [aws_security_group.web-SG.id,aws_security_group.efs-sg.id]
     subnet_id              = aws_subnet.pub_subnet1_obligatorio.id
     availability_zone      = var.vpc_aws_az
     user_data = <<-EOF
@@ -22,22 +22,25 @@ EOF
     provisioner "remote-exec" {
       inline = [
         "sudo amazon-linux-extras enable nginx1",
-        "sudo yum install -y git curl docker nginx",
-        "sudo systemctl enable nginx docker",
-        "sudo systemctl start nginx docker",
+        "sudo yum install -y git curl docker nginx nfs-utils",
+        "sudo systemctl enable nginx docker nfs",
+        "sudo systemctl start nginx docker nfs",
         "sudo curl -L \"https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)\" -o /usr/local/bin/docker-compose",
         "sudo chmod +x /usr/local/bin/docker-compose",
         "sudo usermod -aG docker ec2-user",
         #"sudo newgrp docker",
         "cd /home/ec2-user/",
-        "git clone https://github.com/mfontes1/ORT_obligatorio_isc_2023.git",        
+        "git clone https://github.com/mfontes1/ORT_obligatorio_isc_2023.git",
+        "sudo mkdir -p /mnt/efs",
+        "sudo mount -t efs ${aws_efs_file_system.efs-server.id}:/ /mnt/efs",
+        "echo '${aws_efs_file_system.efs-server.id}:/ /mnt/efs efs defaults,_netdev 0 0' | sudo tee -a /etc/fstab"        
   ] 
 }
-     provisioner "remote-exec" {
-      inline = [
-        "cd /home/ec2-user/ORT_obligatorio_isc_2023/terraform/modules/dev_deploy_isc/docker-compose/ && docker-compose up -d "
-  ]      
-}
+#     provisioner "remote-exec" {
+#      inline = [
+#        "cd /home/ec2-user/ORT_obligatorio_isc_2023/terraform/modules/dev_deploy_isc/docker-compose/ && docker-compose up -d "
+#  ]      
+#}
 
 tags = {
         Name = var.name_instance
@@ -73,18 +76,22 @@ resource "aws_instance" "module-web2-instance-deploy" {
         "sudo usermod -aG docker ec2-user",
         #"sudo newgrp docker",
         "cd /home/ec2-user/",
-        "git clone https://github.com/mfontes1/ORT_obligatorio_isc_2023.git", 
+        "git clone https://github.com/mfontes1/ORT_obligatorio_isc_2023.git",
+        "sudo mkdir -p /mnt/efs",
+        "sudo mount -t efs ${aws_efs_file_system.efs-server.id}:/ /mnt/efs",
+        "echo '${aws_efs_file_system.efs-server.id}:/ /mnt/efs efs defaults,_netdev 0 0' | sudo tee -a /etc/fstab", 
        ]
     } 
-    provisioner "remote-exec" {
-      inline = [
-        "cd /home/ec2-user/ORT_obligatorio_isc_2023/terraform/modules/dev_deploy_isc/docker-compose/ && docker-compose up -d "
-  ]      
-}   
+#    provisioner "remote-exec" {
+#      inline = [
+#        "cd /home/ec2-user/ORT_obligatorio_isc_2023/terraform/modules/dev_deploy_isc/docker-compose/ && docker-compose up -d "
+#  ]      
+#}   
     tags = {
         Name = var.name_instance2
     }
 }
+
 
 #resource "aws_instance" "module-cache-instance-deploy" {
     #instance_type          = var.instance_type
