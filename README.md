@@ -8,7 +8,7 @@
 
 La aplicación MJ Sports es una demostración de una arquitectura de microservicios nativa de la nube. Está compuesta por una aplicación
 de microservicios de 11 niveles, la cual es una sofisticada plataforma de comercio electrónico basada en la web. Dentro de esta plataforma,
-los clientes experimentan una experiencia de compra sin problemas, lo que les permite navegar por una amplia gama de artículos deportivos.
+los clientes tienen una experiencia de compra sin problemas, lo que les permite navegar por una amplia gama de artículos deportivos.
 Mientras navegan por la aplicación, los clientes podrán agregar los productos deseados a su carrito de compras y completar sus compras de
 forma segura y fácil. Con esta aplicación, MJ Sports satisface las necesidades de sus clientes y les proporciona una interfaz fácil de usar.
 Esta tecnología también permite la escalabilidad, resiliencia y la agilidad que son tan necesarias en el desarrollo de aplicaciones modernas.
@@ -59,7 +59,7 @@ La redundancia es importante para asegurar la disponibilidad y continuidad del n
  <img src="docs/img/Diagrama_arquitectura.png" alt="Diagrama de Arquitectura">
 </p>
                                                                                         
-Se usó Terraform para la automatización del despliegue de la infraestructura, despliegue de las imágenes y de los contenedores. (SI NO AUTOMATIZAMOS TODO SACAMOS LOA QUE NO SE HAGA)
+Se usó Terraform para la automatización del despliegue de la infraestructura, despliegue de las imágenes y de los contenedores. **(SI NO AUTOMATIZAMOS TODO, SACAMOS LO QUE NO SE HAGA)**
 
 La estructura de Terraform para este proyecto se ve como se muestra en la foto.
 
@@ -95,14 +95,14 @@ Dentro de modules, también se encuentra el directorio docker-compose, el cual c
 
 **Nota:** se decidió utilizar docker-compose en lugar de Kubernetes por una serie de razones.
 
-1-	El proyecto no requiere un escalamiento masivo, por lo tanto, Docker satisface el nivel de escalamiento requerido y provee otras ventajas que hacen que valga la pena su uso. 
+**1-**	El proyecto no requiere un escalamiento masivo, por lo tanto, Docker satisface el nivel de escalamiento requerido y provee otras ventajas que hacen que valga la pena su uso. 
     Se adapta bien al tamaño del proyecto.
     
-2-	Kubernetes es bastante más complejo. Docker es más simple en su uso. 
+**2-**	Kubernetes es bastante más complejo. Docker es más simple en su uso. 
 
-3-	Las fallas en Docker son más fáciles de identificar, ya que contienen menos cosas que pueden fallar.
+**3-**	Las fallas en Docker son más fáciles de identificar, ya que contienen menos cosas que pueden fallar.
 
-4-	Los archivos de Docker son en texto plano y se pueden compartir fácilmente, en cambio los archivos de un despliegue de Kubernetes son almacenados en sus manifiestos que     
+**4-**	Los archivos de Docker son en texto plano y se pueden compartir fácilmente, en cambio los archivos de un despliegue de Kubernetes son almacenados en sus manifiestos que     
     utilizan un formato más complejo.
     
 Docker-compose contiene todos los servicios mencionados en la arquitectura del documento más arriba. Dentro de cada servicio hay un archivo que es importante, el Dockerfile. Se usa para crear imágenes, para instalar software, copiar archivos hasta configuraciones. Todo lo que se quiera modificar o actualizar se va a hacer desde este archivo.
