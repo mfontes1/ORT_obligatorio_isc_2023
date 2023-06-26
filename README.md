@@ -1,6 +1,6 @@
 <p align="center">
-<img src="src/frontend/static/icons/MJ Sports logo-2023-06-26.png" width="300" alt="MJ Sports" />
-  
+<img src="docs/img/MJ Sports logo-2023-06-26.png" width="300" alt="MJ Sports" />
+
 </p>
 
 
