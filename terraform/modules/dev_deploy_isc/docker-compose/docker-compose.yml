@@ -1,101 +1,90 @@
 version: '3.8'
+
+volumes:
+  redis-data:
+
 services:
+  redis:
+    image: redis:latest
+    ports:
+         - 6379:6379
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes  
+
+  ad-service:
+    build:
+      context: ./adservice
+      dockerfile: Dockerfile
+    ports:
+      - 9555:9555
+
+  cart-service:
+    build:
+      context: ./cartservice/src
+      dockerfile: Dockerfile
+    ports:
+      - 7070:7070
+
+  checkout-service:
+    build:
+      context: ./checkoutservice
+      dockerfile: Dockerfile
+    ports:
+      - 5050:5050
+
+  email-server:
+    build:
+      context: ./emailservice
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
       - 8080:8080
-    volumes:
-      - ./templates:/src/templates
-      - ./static:/src/static
-    depends_on:
-      - cartservice
 
-  cartservice:
-    build:
-      context: ./cartservice
-      dockerfile: Dockerfile
-    ports:
-     - 7070:7070
-               
   loadgen:
     build:
-      context: ./loadgen
+      context: ./loadgenerator
       dockerfile: Dockerfile
-#    environment:
-#      - FRONTEND_ADDR=frontend      
-#      - USERS=10
-    
-#    depends_on:
-#      - frontend
-          
-  adservice:
-    build:
-      context: ./adservice
-      dockerfile: Dockerfile
-    ports:
-      - 9555:9555
-#    depends_on:
-#      - frontend
-  
-  redis:
-    image: redis
-    ports:
-      - "6379:6379"
-    volumes:
-      - redis-data:/data
-    command: redis-server --appendonly yes
+    environment:
+      - FRONTEND_ADDR=frontend:8080
+    depends_on:
+      - frontend
 
-
-  recommendationservice:
+  recommendation-service:
     build:
       context: ./recommendationservice
       dockerfile: Dockerfile
     ports:
-      - 8080:8080
+      - 8081:8081
 
-  productcatalogservice:
-    build: 
+  shipping-service:
+    build:
+      context: ./shippingservice
+      dockerfile: Dockerfile
+    ports:
+      - 50051:50051
+
+  product-catalog-service:
+    build:
       context: ./productcatalogservice
       dockerfile: Dockerfile
     ports:
       - 3550:3550
 
-  currencyservice:
-    build: 
-      context: ./currencyservice
-      dockerfile: Dockerfile
-    ports:
-      - 7000
 
-  shippingservice:
-    build: 
-      context: .shippingservice
-      dockerfile: Dockerfile
-    ports:
-      - 5051
 
-  checkoutservice:
-    build: 
-      context: ./checkoutservice
-      dockerfile: Dockerfile
-    ports:
-      - 5050
 
-  paymentservice:
-    build: 
-      context: ./paymentservice
-      dockerfile: Dockerfile
-    ports:
-      - 50051
 
-  emailservice:
-    build:
-      context: ./emailservice
-      dockerfile: Dockerfile
-    ports:
-      - 8080
+
+
+
+
 
 
 

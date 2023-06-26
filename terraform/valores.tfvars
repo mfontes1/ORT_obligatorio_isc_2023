@@ -11,8 +11,8 @@ vpc_cidr1_input = "10.0.1.0/24"
 vpc_cidr2_input = "10.0.2.0/24"
 public_subnet1_input = "true"
 public_subnet2_input = "true"
-availability_zone = "us-east-1a"
-availability_zone2 = "us-east-1b"
+availability_zone = "us-east-1b"
+availability_zone2 = "us-east-1c"
 sg_name_input = "SG_Obl_ssh_http"
 #security_groups_input = [aws_security_group.web_lb_sg.id]
 
