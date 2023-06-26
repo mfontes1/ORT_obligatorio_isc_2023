@@ -90,9 +90,9 @@ Archivo **security-groups.tf**, contiene la configuración para definir y admini
 
 **La seguridad se gestiona a través de la autenticación y autorización para garantizar el acceso de los usuarios correctos, con politicas IAM se asignaron los roles y permisos adecuados a los usuarios. Con Amazon S3 se gestionó la proteccion de datos sensibles con técnicas de cifrado y las comunicaciones se protegieron mediante el uso de protocolos seguros como HTTPS. El uso de firewalls también protege las comunicaciones y la configuración de grupos de seguridad para controlar el tráfico entrante y saliente.**
 
-Archivo **variables.tf**, contiene las variables que aplican al directorio modules, que están definidas allí.
+Archivo **variables.tf**, contiene las variables allí definidas que aplican al directorio modules.
 
-Dentro de modules, también se encuentra el directorio *docker-compose**, el cual contiene todos los microservicios que serán desplegados por docker-compose.
+Dentro de **modules**, también se encuentra el directorio *docker-compose**, el cual contiene todos los microservicios que serán desplegados por docker-compose.
 
 **Nota:** se decidió utilizar docker-compose en lugar de Kubernetes por una serie de razones.
 
@@ -106,7 +106,7 @@ Dentro de modules, también se encuentra el directorio *docker-compose**, el cua
 **4-**	Los archivos de Docker son en texto plano y se pueden compartir fácilmente, en cambio los archivos de un despliegue de Kubernetes son almacenados en sus manifiestos que     
     utilizan un formato más complejo.
     
-Docker-compose contiene todos los servicios mencionados en la arquitectura del documento más arriba. Dentro de cada servicio hay un archivo que es importante, el **Dockerfile**. Contiene datos sensibles porque se usa para crear imágenes, para instalar software, copiar archivos y hasta configuraciones. Todo lo que se quiera modificar o actualizar se va a hacer desde este archivo.
+**Docker-compose** contiene todos los servicios mencionados en la arquitectura del documento más arriba. Dentro de cada servicio hay un archivo que es importante, el **Dockerfile**. Contiene datos sensibles porque se usa para crear imágenes, para instalar software, copiar archivos y hasta configuraciones. Todo lo que se quiera modificar o actualizar se va a hacer desde este archivo.
 
 El otro archivo es **docker-compose.yml**, en la estructura esta fuera de todos los servicios. Es el archivo de configuración utilizado por Docker-compose. En el archivo se describieron los servicios, redes y volúmenes necesarios pare ejecutar la aplicación en este proyecto el cual está compuesto por varios contenedores de Docker. Todos los servicios deben estar presentes en este archivo con detalles de los puertos expuestos, los volúmenes con el path, dependencias y otras configuraciones específicas del servicio. Cuando se ejecute el docker-compose, este archivo va a ser leído para saber dónde levantar las imágenes de cada servicio, para lo cual el path de cada servicio va a apuntar hacia su dockerfile. Este path debe estar correctamente ingresado, de lo contrario se obtendrá un error por respuesta. 
                                                               
