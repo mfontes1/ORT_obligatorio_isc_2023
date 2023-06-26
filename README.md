@@ -71,7 +71,7 @@ La estructura de Terraform para este proyecto se ve como se muestra en la foto.
 
 
 En la raíz del directorio “terraform” se encuentran los archivos main.tf, provider.tf, terraform.tfstate y el backup, valores.tfvars y variables.tf.
-En el main.tf se realizó la parametrización de todos los datos como source, ami, instance type, name instance, name vpc, vpc cidr, public subnets, las AZ y los nombres de los security groups.
+En el main.tf se realizó la parametrización en module, para definir la conifguracion de un modulo en terraform. El modulo se llama "dev_deploy_isc" y se especifica la ruta en el source. En este modulo se proporciona los valores utilizando las variables de la ami, instance type, name instance, name vpc, vpc cidr, public subnets, las AZ y los security groups.
 La parametrización es beneficiosa porque si se requiere un cambio en los datos, se va al archivo valores.tfvars, se hace el cambio y luego ese cambio se replica en todos los archivos relacionados. 
 En el archivo provider.tf se definio la región y el profile. 
 El archivo variables.tf es donde se definieron las variables.
