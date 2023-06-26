@@ -48,10 +48,9 @@ Find **Protocol Buffers Descriptions** at the [`./pb` directory](./pb).
                              
 ## Descripción de la infraestructura
 La infraestructura creada es simple, escalable, robusta y cumple con las necesidades del cliente. 
-Está compuesta por un VPC en zonas de disponibilidad (AZ),  donde cada una contiene una instancia EC2. Un LB (load balancer) **[QUE TIPO DE LB?]** que distribuye la carga de trabajo de manera eficiente hacia las instancias y garantiza un rendimiento óptimo, así como también alta disponibilidad. 
+Está compuesta por un VPC en zonas de disponibilidad (AZ),  donde cada una contiene una instancia EC2. Un ELB (load balancer) del tipo de aplicaciones (Application Load Balancer), que es el adecuado para el balanceo de carga de trafico HTTP y HTTPS. Puede controlar la carga variable del trafico de la aplicacion en una unica o varias AZs.  
 Dos instancias EC2 que contiene todos los servidores de la aplicación y los microservicios. Un proxy reverso (Nginx) de alto rendimiento para recibir las solicitudes de los clientes y pasarlas a los servidores web. El proxy reverso mejora la seguridad al evitar que la aplicacion esté expuesta a internet, y también mejora el rendimiento y la disponibilidad de la aplicación. 
 Además, se usó un Redis en cada instancia, los que están asociados a un share NFS con el objetivo de compartir y sincronizar datos utilizados por las dos instancias de Redis.
-La redundancia es importante para asegurar la disponibilidad y continuidad del negocio, por lo tanto, usaremos Auto-Scaling en las instancias... **EXPLICAR QUE TIPO ELEGIMOS Y PORQUE.**
 
 <h2 align="center">Diagrama de Arquitectura</h2>
    
@@ -69,7 +68,6 @@ La estructura de Terraform para este proyecto se ve como se muestra en la foto.
  <img src="docs/img/Estructura_proyecto.png" alt="Estructura del Proyecto">
 </p>
 
-
 En la raíz del directorio “terraform” se encuentran los archivos main.tf, provider.tf, terraform.tfstate y el backup, valores.tfvars y variables.tf.
 En el **main.tf** se realizó la parametrización en el bloque "module", para definir la conifguracion de un modulo en terraform. El modulo se llama "dev_deploy_isc" y se especifica la ruta en el source. En este modulo se proporciona los valores de entrada utilizando las variables de la ami, instance type, name instance, name vpc, vpc cidr, public subnets, las AZ y los security groups. El bloque output define la salida del módulo, se llama "dns-output" y se indica donde se encuentra su valor, que está en "dev_deploy_isc".
 
@@ -86,11 +84,11 @@ El archivo **instances.tf**, es donde se indicaron las instancias que se van a c
 
 Archivo **network.tf**, acá es donde se definieron los recursos de red, se parametrizaron los valores. Se definió la VPC, la subnet1 y 2, se definió el Gateway, la default route table para el VPC, también una ruta para el load balancer, se definió el load balancer con sus subnets 1 y 2 además del security group para el lb. Se definieron los listeners en puerto 80, HTTP, y la default action que responde con OK (código 200) si ninguna de las reglas se cumplen cuando recibe una solicitud. También se definió  el web target group, su puerto y protocolo y finalmente los attachments 1 y 2 para crear la asociación entre los grupos de destino y la instancia en el lb.
 
-Archivo **security-groups.tf**, contiene la configuración para definir y administrar los security groups. Se definieron las reglas de ingreso y salida para las instancias web 1 y 2, el load balancer y el share NFS. Para las web permite acceso SSH en los puertos 22 y 80, para el LB en el puerto 80 y para NFS en el puerto 2049 para TCP y UDP. **(CONFIRMAR EL NFS)** 
-Archivos **EFS (Elastic File System)**, describe los recursos con los puntos de montaje asociados en cada subred. Esto permite compartir los archivos almacenados y escalar a necesidad. Estos archivos son accesibles de ambas instancias EC2 en la misma vPC. Si la cantidad de instancias EC2 aumenta, también tendrán acceso a los archivos de forma segura. 
+Archivo **security-groups.tf**, contiene la configuración para definir y administrar los security groups. Se definieron las reglas de ingreso y salida para las instancias web 1 y 2, el load balancer y el share NFS. Para las web permite acceso SSH en los puertos 22 y 80, para el LB en el puerto 80 y para NFS en el puerto 2049 para TCP. Las reglas de firewall son manejadas a nivel de los security groups para proteger las comunicaciones y controlar el tráfico entrante y saliente.
 
-remover**La seguridad se gestiona a través de la autenticación y autorización para garantizar el acceso de los usuarios correctos, con politicas IAM se asignaron los roles y permisos adecuados a los usuarios. Con Amazon S3 se gestionó la proteccion de datos sensibles con técnicas de cifrado y las comunicaciones se protegieron mediante el uso de protocolos seguros como HTTPS. elaborar estoEl uso de firewalls también protege las comunicaciones y la configuración de grupos de seguridad para controlar el tráfico entrante y saliente.**
+El **EFS (Elastic File System)**, describe los recursos con sus puntos de montaje asociados en cada subred. Esto permite compartir los archivos almacenados y escalar a necesidad. Estos archivos son accesibles desde ambas instancias EC2 en la misma vPC. Si la cantidad de instancias EC2 aumenta, también tendrán acceso a los archivos de forma segura. 
 
+ elaborar esto
 Archivo **variables.tf**, contiene las variables allí definidas que aplican al directorio modules.
 
 Dentro de **modules**, también se encuentra el directorio *docker-compose**, el cual contiene todos los microservicios que serán desplegados por docker-compose.
