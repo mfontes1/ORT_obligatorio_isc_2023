@@ -28,7 +28,7 @@ EOF
         "sudo curl -L \"https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)\" -o /usr/local/bin/docker-compose",
         "sudo chmod +x /usr/local/bin/docker-compose",
         "sudo usermod -aG docker ec2-user",
-        #"sudo newgrp docker",
+        "sudo newgrp docker",
         "cd /home/ec2-user/",
         "git clone https://github.com/mfontes1/ORT_obligatorio_isc_2023.git",
         "sudo mkdir -p /mnt/efs",
@@ -36,11 +36,11 @@ EOF
         "echo '${aws_efs_file_system.efs-server.id}:/ /mnt/efs efs defaults,_netdev 0 0' | sudo tee -a /etc/fstab"        
   ] 
 }
-#     provisioner "remote-exec" {
-#      inline = [
-#        "cd /home/ec2-user/ORT_obligatorio_isc_2023/terraform/modules/dev_deploy_isc/docker-compose/ && docker-compose up -d "
-#  ]      
-#}
+     provisioner "remote-exec" {
+      inline = [
+        "cd /home/ec2-user/ORT_obligatorio_isc_2023/terraform/modules/dev_deploy_isc/docker-compose/ && docker-compose up -d "
+  ]      
+}
 
 tags = {
         Name = var.name_instance
@@ -82,11 +82,11 @@ resource "aws_instance" "module-web2-instance-deploy" {
         "echo '${aws_efs_file_system.efs-server.id}:/ /mnt/efs efs defaults,_netdev 0 0' | sudo tee -a /etc/fstab", 
        ]
     } 
-#    provisioner "remote-exec" {
-#      inline = [
-#        "cd /home/ec2-user/ORT_obligatorio_isc_2023/terraform/modules/dev_deploy_isc/docker-compose/ && docker-compose up -d "
-#  ]      
-#}   
+    provisioner "remote-exec" {
+      inline = [
+        "cd /home/ec2-user/ORT_obligatorio_isc_2023/terraform/modules/dev_deploy_isc/docker-compose/ && docker-compose up -d "
+  ]      
+}   
     tags = {
         Name = var.name_instance2
     }

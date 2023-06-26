@@ -7,27 +7,96 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - ./frontend/data:/app/data
-    environment:
-      - PRODUCT_CATALOG_SERVICE_ADDR=cartservice
-#    depends_on:
-#      - cartservice
+      - ./templates:/src/templates
+      - ./static:/src/static
+    depends_on:
+      - cartservice
 
-#  cartservice:
-#    build:
-#      context: ./cartservice
-#    ports:
- #     - 7070:7070
-##      dockerfile: Dockerfile
+  cartservice:
+    build:
+      context: ./cartservice
+      dockerfile: Dockerfile
+    ports:
+     - 7070:7070
+               
+  loadgen:
+    build:
+      context: ./loadgen
+      dockerfile: Dockerfile
+#    environment:
+#      - FRONTEND_ADDR=frontend      
+#      - USERS=10
     
-   
-    
+#    depends_on:
+#      - frontend
+          
   adservice:
     build:
       context: ./adservice
       dockerfile: Dockerfile
     ports:
       - 9555:9555
-    depends_on:
-      - frontend
+#    depends_on:
+#      - frontend
+  
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes
+
+
+  recommendationservice:
+    build:
+      context: ./recommendationservice
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+
+  productcatalogservice:
+    build: 
+      context: ./productcatalogservice
+      dockerfile: Dockerfile
+    ports:
+      - 3550:3550
+
+  currencyservice:
+    build: 
+      context: ./currencyservice
+      dockerfile: Dockerfile
+    ports:
+      - 7000
+
+  shippingservice:
+    build: 
+      context: .shippingservice
+      dockerfile: Dockerfile
+    ports:
+      - 5051
+
+  checkoutservice:
+    build: 
+      context: ./checkoutservice
+      dockerfile: Dockerfile
+    ports:
+      - 5050
+
+  paymentservice:
+    build: 
+      context: ./paymentservice
+      dockerfile: Dockerfile
+    ports:
+      - 50051
+
+  emailservice:
+    build:
+      context: ./emailservice
+      dockerfile: Dockerfile
+    ports:
+      - 8080
+
+
+
     
