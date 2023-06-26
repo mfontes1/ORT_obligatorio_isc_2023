@@ -49,7 +49,7 @@ Find **Protocol Buffers Descriptions** at the [`./pb` directory](./pb).
 ## Descripción de la infraestructura
 La infraestructura creada es simple, escalable, robusta y cumple con las necesidades del cliente. 
 Está compuesta por un VPC en zonas de disponibilidad (AZ),  donde cada una contiene una instancia EC2. Un LB (load balancer) **[QUE TIPO DE LB?]** que distribuye la carga de trabajo de manera eficiente hacia las instancias y garantiza un rendimiento óptimo, así como también alta disponibilidad. 
-Dos instancias EC2 que contiene todos los servidores de la aplicación y los microservicios. Un proxy reverso (Nginx) de alto rendimiento para recibir las solicitudes de los clientes y pasarlas a los servidores web, mejora la seguridad al evitar que la aplicacion esté expuesta a internet, y también mejora el rendimiento y la disponibilidad de la aplicación. 
+Dos instancias EC2 que contiene todos los servidores de la aplicación y los microservicios. Un proxy reverso (Nginx) de alto rendimiento para recibir las solicitudes de los clientes y pasarlas a los servidores web. El proxy reverso mejora la seguridad al evitar que la aplicacion esté expuesta a internet, y también mejora el rendimiento y la disponibilidad de la aplicación. 
 Además, se usó un Redis en cada instancia, los que están asociados a un share NFS con el objetivo de compartir y sincronizar datos utilizados por las dos instancias de Redis.
 La redundancia es importante para asegurar la disponibilidad y continuidad del negocio, por lo tanto, usaremos Auto-Scaling en las instancias... **EXPLICAR QUE TIPO ELEGIMOS Y PORQUE.**
 
