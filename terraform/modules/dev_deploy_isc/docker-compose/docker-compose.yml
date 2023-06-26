@@ -52,7 +52,7 @@ services:
       context: ./loadgenerator
       dockerfile: Dockerfile
     environment:
-      - FRONTEND_ADDR=frontend:8080
+      - FRONTEND_ADDR=127.0.0.1:8080
     depends_on:
       - frontend
 
