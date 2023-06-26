@@ -38,7 +38,7 @@ services:
       context: ./emailservice
       dockerfile: Dockerfile
     ports:
-      - 8080:8080
+      - 8881:8881
 
   frontend:
     build:
