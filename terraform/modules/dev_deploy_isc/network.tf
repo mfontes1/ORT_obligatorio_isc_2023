@@ -73,25 +73,19 @@ resource "aws_lb_listener" "web_listener" {
   port              = 80
   protocol          = "HTTP"
 
-  default_action {
-    target_group_arn = aws_lb_target_group.web_target_group.arn
+  default_action {    
     type             = "forward"
-    fixed_response {
-      content_type = "text/plain"
-      message_body = "OK"
-      status_code  = "200"
-    
-  }
+    target_group_arn = aws_lb_target_group.web_target_group.arn
+        
+      }    
 }
-}
+
 
 
 resource "aws_lb_target_group" "web_target_group" {
   name     = "web-target-group"
-  port     = 80
+  port     = 8080
   protocol = "HTTP"
-
-  
   vpc_id = aws_vpc.vpc_obligatorio.id
 }
 

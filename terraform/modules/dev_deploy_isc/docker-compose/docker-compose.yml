@@ -46,15 +46,16 @@ services:
       dockerfile: Dockerfile
     ports:
       - 8080:8080
-
-  loadgen:
-    build:
-      context: ./loadgenerator
-      dockerfile: Dockerfile
     environment:
-      - FRONTEND_ADDR=127.0.0.1:8080
-    depends_on:
-      - frontend
+      - PRODUCT_CATALOG_SERVICE_ADDR= product-catalog-service:3550
+      - CURRENCY_SERVICE_ADDR = currency-service:7000
+  
+  currency-service:
+    build:
+      context: ./currencyservice
+      dockerfile: Dockerfile
+    ports:
+      - 7000:7000
 
   recommendation-service:
     build:

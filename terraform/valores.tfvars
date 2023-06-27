@@ -14,7 +14,7 @@ public_subnet2_input = "true"
 availability_zone = "us-east-1b"
 availability_zone2 = "us-east-1c"
 sg_name_input = "SG_Obl_ssh_http"
-#security_groups_input = [aws_security_group.web_lb_sg.id]
+
 
 
 

@@ -86,8 +86,4 @@ variable "sg_name_input" {
   
 }
 
-#variable "security_groups_input" {
-    #type = string
-    #description = "Variable SG para LB"
-  
-#}
+
