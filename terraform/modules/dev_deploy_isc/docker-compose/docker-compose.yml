@@ -1,3 +1,6 @@
+# Se definieron los servicios para el despliegue de la aplicación segun el contenido del 
+# dockerfile de cada servicio.
+
 version: '3.8'
 
 volumes:
@@ -32,7 +35,11 @@ services:
     build:
       context: ./emailservice
       dockerfile: Dockerfile
-   
+  # El frontend no se pudo levantar. De acuerdo al error requeria las variables que estan definidas en 
+  # el environment, las cuales se probaron con el nombre_contenedor:puerto, nombre_contenedor, se 
+  # intentó con la IP, pero nada funcionó. Consecuentemente el frontend no levantó y el LB no llegó a 
+  # las instancias.
+  
 
   frontend:
     build:
@@ -70,7 +77,7 @@ services:
     build:
       context: ./paymentservice
       dockerfile: Dockerfile
-  
+# el servicio load_generator fue removido por sugerencia del profesor  
 
 
 
