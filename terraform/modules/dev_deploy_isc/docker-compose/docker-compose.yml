@@ -16,29 +16,23 @@ services:
     build:
       context: ./adservice
       dockerfile: Dockerfile
-    ports:
-      - 9555:9555
 
   cart-service:
     build:
       context: ./cartservice/src
       dockerfile: Dockerfile
-    ports:
-      - 7070:7070
-
+    
   checkout-service:
     build:
       context: ./checkoutservice
       dockerfile: Dockerfile
-    ports:
-      - 5050:5050
+   
 
   email-server:
     build:
       context: ./emailservice
       dockerfile: Dockerfile
-    ports:
-      - 8881:8881
+   
 
   frontend:
     build:
@@ -54,30 +48,24 @@ services:
     build:
       context: ./currencyservice
       dockerfile: Dockerfile
-    ports:
-      - 7000:7000
+  
 
   recommendation-service:
     build:
       context: ./recommendationservice
       dockerfile: Dockerfile
-    ports:
-      - 8081:8081
-
+   
   shipping-service:
     build:
       context: ./shippingservice
       dockerfile: Dockerfile
-    ports:
-      - 50051:50051
+   
 
   product-catalog-service:
     build:
       context: ./productcatalogservice
       dockerfile: Dockerfile
-    ports:
-      - 3550:3550
-
+    
   payment-service:
     build:
       context: ./paymentservice
