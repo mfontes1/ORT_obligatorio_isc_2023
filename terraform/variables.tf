@@ -1,3 +1,4 @@
+# se definieron las variables
 variable "region" {
   type = string
   description = "Variable para la region"
