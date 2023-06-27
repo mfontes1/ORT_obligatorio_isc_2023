@@ -87,8 +87,7 @@ Archivo **security-groups.tf**, contiene la configuración para definir y admini
 
 El **EFS (Elastic File System)**, describe los recursos con sus puntos de montaje asociados en cada subred. Esto permite compartir los archivos almacenados y escalar a necesidad. Estos archivos son accesibles desde ambas instancias EC2 en la misma vPC. Si la cantidad de instancias EC2 aumenta, también tendrán acceso a los archivos de forma segura. 
 
- elaborar esto
-Archivo **variables.tf**, contiene las variables allí definidas que aplican al directorio modules.
+Archivo **variables.tf**, contiene las variables allí definidas que aplican al directorio modules. Con esta parametrizacion se logra flexibilidad para personalizar y reutilizar la infraestructura a necesidad. 
 
 Dentro de **modules**, también se encuentra el directorio *docker-compose**, el cual contiene todos los microservicios que serán desplegados por docker-compose.
 
