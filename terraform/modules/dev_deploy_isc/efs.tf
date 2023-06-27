@@ -1,3 +1,4 @@
+# se crea el recurso efs
 resource "aws_efs_file_system" "efs-server" {
   creation_token = "obligatorio-efs"
   performance_mode = "generalPurpose"
@@ -11,7 +12,7 @@ resource "aws_efs_file_system" "efs-server" {
 data "aws_availability_zones" "available" {
   state = "available"
 }
-
+# se habilita el punto de montaje para las dos AZ
 resource "aws_efs_mount_target" "shared-nfs1" {
 #  count           = length(data.aws_availability_zones.available.names)
   file_system_id  = aws_efs_file_system.efs-server.id
