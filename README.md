@@ -113,9 +113,17 @@ El otro archivo es **docker-compose.yml**, en la estructura esta fuera de todos 
 Finalmente para desplegar la infraestructura con este codigo se debe tener presente lo siguente:
 **1-** En AWS se debe tener una cuenta, AWS cli instalado, credenciales en ./aws/credentials y la clave SSH en formato .pem, guardado para ser utilizado con frecuencia en la ejecución del código.
 **2-** Tener Terraform instalado
+**3-** En Git: clonar el repositorio:"https://github.com/mfontes1/ORT_obligatorio_isc_2023.git" 
+       En el directorio del repo ir a: /ORT/Cloud/ORT_obligatorio_isc_2023/terraform
+       Hacer "Terraform init" para iniciallizar el directorio de trabajo de terraform
+       Finalmente ejecutar: "terraform apply -var-file=valores.tfvars" para que se carguen los valores de las variables ya definidos.
+        
 **Nota** Para la implementación de este proyecto no se realizó el almacenamiento de estado remoto. La razón fue evitar perder tiempo en una configuración que, si bien proporciona seguridad y es lo correcto, llevaria tiempo que se prefirió invertir en el proyecto mismo ya que habria que crear otro proyecto separado. Se entiende que en la vida real el método a usar debería ser configurando el almacenamiento de estado remoto.
 
 La documentacion usada durante el proyecto fue la sigueiente:
-1- Grabaciones de las clases
-2- Presentaciones usadas en la clase
-3- Terraform docs
+- https://aulas.ort.edu.uy/
+- https://terraform-docs.io/
+- https://docs.docker.com/
+- https://chat.openai.com/
+- http://nginx.org/
+
