@@ -1,3 +1,4 @@
+# se asignaron los valores para los siguientes recursos
 region = "us-east-1"
 profile = "default"
 instance_type_input = "t2.medium"
