@@ -48,8 +48,8 @@ Find **Protocol Buffers Descriptions** at the [`./pb` directory](./pb).
                              
 ## Descripción de la infraestructura
 La infraestructura creada es simple, escalable, robusta y cumple con las necesidades del cliente. 
-Está compuesta por un VPC en zonas de disponibilidad (AZ),  donde cada una contiene una instancia EC2. Un ELB (load balancer) del tipo de aplicaciones (Application Load Balancer), que es el adecuado para el balanceo de carga de trafico HTTP y HTTPS. Puede controlar la carga variable del trafico de la aplicacion en una unica o varias AZs.  
-Dos instancias EC2 que contiene todos los servidores de la aplicación y los microservicios. Un proxy reverso (Nginx) de alto rendimiento para recibir las solicitudes de los clientes y pasarlas a los servidores web. El proxy reverso mejora la seguridad al evitar que la aplicacion esté expuesta a internet, y también mejora el rendimiento y la disponibilidad de la aplicación. 
+Está compuesta por un VPC con IP 10.0.0.0/16 en dos zonas de disponibilidad (AZ), us-east-1b con CIDR 10.0.1.0/24 y us-east-1c con CIDR 10.0.2.0/24, donde cada una contiene una instancia EC2. Un ELB (load balancer) del tipo de aplicaciones (Application Load Balancer), que es el adecuado para el balanceo de carga de trafico HTTP y HTTPS. Puede controlar la carga variable del trafico de la aplicacion en una unica o varias AZs.  
+Dos instancias EC2 que contiene todos los servicios. Un proxy reverso (Nginx) de alto rendimiento para recibir las solicitudes de los clientes y pasarlas a los servidores web. El proxy reverso mejora la seguridad al evitar que la aplicacion estén expuestas a internet, y también mejora el rendimiento y la disponibilidad de la aplicación. 
 Además, se usó un Redis en cada instancia, los que están asociados a un share NFS con el objetivo de compartir y sincronizar datos utilizados por las dos instancias de Redis.
 
 <h2 align="center">Diagrama de Arquitectura</h2>
@@ -68,26 +68,29 @@ La estructura de Terraform para este proyecto se ve como se muestra en la foto.
 </p>
 
 En la raíz del directorio “terraform” se encuentran los archivos main.tf, provider.tf, terraform.tfstate y el backup, valores.tfvars y variables.tf.
-En el **main.tf** se realizó la parametrización en el bloque "module", para definir la conifguracion de un modulo en terraform. El modulo se llama "dev_deploy_isc" y se especifica la ruta en el source. En este modulo se proporciona los valores de entrada utilizando las variables de la ami, instance type, name instance, name vpc, vpc cidr, public subnets, las AZ y los security groups. El bloque output define la salida del módulo, se llama "dns-output" y se indica donde se encuentra su valor, que está en "dev_deploy_isc".
+En el **main.tf** se definió la parametrización del código, con los parametros contenidoes en el modulo dev_deploy_isc y se especifica la ruta en el source. También se proporciona los valores de entrada utilizando las variables de la ami, instance type, name instance, name vpc, vpc cidr, public subnets, las AZ y los security groups. El bloque output define la salida del módulo, se llama "dns-output" y se indica donde se encuentra su valor, que está en "dev_deploy_isc".
 
-La parametrización es beneficiosa porque si se requiere un cambio en los datos, se va al archivo valores.tfvars, se hace el cambio y luego ese cambio se replica en todos los archivos relacionados. 
+La parametrización es beneficiosa porque si se requiere un cambio en los datos, se va al archivo valores.tfvars, se hace el cambio y luego ese cambio se replica en todos los archivos relacionados.
+
 En el archivo **provider.tf** se definio la región y el profile. 
-El archivo **variables.tf** es donde se definieron las variables.Permite flexibilidad y tambien que se puedan reutilizar.
+El archivo **variables.tf** es donde se definieron las variables. Permite flexibilidad y tambien que se puedan reutilizar.
 En **valores.tfvars** es donde se agregaron los valores de esas variables y es de donde se harán los cambios necesarios. 
-El archivo **terraform.tfstate** es muy importante y crítico para el funcionamiento de terraform, así que es importante mantenerlo seguro. Guarda estado actual de los recursos de esta infraestructura, incluyendo identificadores únicos de los recursos, configuraciones aplicadas, dependencias, entre otras cosas, que son necesarias para administrar y actualizar la infraestructura de manera controlada. 
-Además, en la raíz de terraform, se encuentra el directorio **modules** el cual contiene los datos de la parametrización necesaria para el despliegue automatizado de la infraestructura. También dentro de modules tenemos archivos y directorios. 
+El archivo **terraform.tfstate** es muy importante y crítico para el funcionamiento de terraform, así que es importante mantenerlo seguro. Guarda estado actual de los recursos de esta infraestructura, incluyendo identificadores únicos de los recursos, configuraciones aplicadas, dependencias, entre otras cosas, que son necesarias para administrar y actualizar la infraestructura de manera controlada.
+
+Además, en la raíz de terraform, se encuentra el directorio **modules** el cual contiene los datos de la parametrización necesaria para el despliegue automatizado de la infraestructura. También dentro de modules tenemos archivos y directorios.
+
 Uno de ellos es el directorio **dev_deploy_isc**, el que contiene los archivos para el despliegue de la infraestructura.
 El archivo **instances.tf**, es donde se indicaron las instancias que se van a crear. Si hay necesidad de crear más instancias se crearán en este archivo. Se crearon web1 y web2. Cada instancia se configuró para hacer lo mismo con mínimas variaciones. En el bloque provisioner se configuró una serie de comandos que hacen lo siguiente,  instala Git, curl, Docker, luego instala docker-compose en su última versión, le da permisos al archivo de Docker-compose y agrega al usuario "ec2-user" al grupo Docker. Luego se mueve al directorio home del usuario y comienza el clonado del repositorio.  
 
-**Nota importante para quien ejecute las instancias:** en “connection”, se debe cambiar el path en el file para que apunte a la private_key de quien sea el ejecutante.
+**Nota importante para quien ejecute las instancias:** en el bloque “connection”, se debe cambiar el path en el file para que apunte a la private_key de quien sea el ejecutante.
 
-Archivo **network.tf**, acá es donde se definieron los recursos de red, se parametrizaron los valores. Se definió la VPC, la subnet1 y 2, se definió el Gateway, la default route table para el VPC, también una ruta para el load balancer, se definió el load balancer con sus subnets 1 y 2 además del security group para el lb. Se definieron los listeners en puerto 80, HTTP, y la default action que responde con OK (código 200) si ninguna de las reglas se cumplen cuando recibe una solicitud. También se definió  el web target group, su puerto y protocolo y finalmente los attachments 1 y 2 para crear la asociación entre los grupos de destino y la instancia en el lb.
+Archivo **network.tf**, acá es donde se definieron los recursos de red, se parametrizaron los valores. Se definió la VPC, la subnet1 y 2, se definió el Gateway, la default route table para el VPC, también una ruta para el load balancer, se definió el load balancer con sus subnets 1 y 2 además del security group para el lb. Se definieron los listeners en el puerto 80, le hace forward al target group que recibe en el puerto 8080, HTTP, este contiene los attachments 1 y 2. 
 
-Archivo **security-groups.tf**, contiene la configuración para definir y administrar los security groups. Se definieron las reglas de ingreso y salida para las instancias web 1 y 2, el load balancer y el share NFS. Para las web permite acceso SSH en los puertos 22 y 80, para el LB en el puerto 80 y para NFS en el puerto 2049 para TCP. Las reglas de firewall son manejadas a nivel de los security groups para proteger las comunicaciones y controlar el tráfico entrante y saliente.
+Archivo **security-groups.tf**, contiene la configuración para definir y administrar los security groups. Se definieron las reglas de ingreso y salida para las instancias web 1 y 2, el load balancer y el share NFS. Para las web permite acceso SSH en los puertos 22 y HTTP en el 80, para el LB en el puerto 80 y para NFS en el puerto 2049 para TCP. Las reglas de firewall son manejadas a nivel de los security groups para proteger las comunicaciones y controlar el tráfico entrante y saliente.
 
-El **EFS (Elastic File System)**, describe los recursos con sus puntos de montaje asociados en cada subred. Esto permite compartir los archivos almacenados y escalar a necesidad. Estos archivos son accesibles desde ambas instancias EC2 en la misma vPC. Si la cantidad de instancias EC2 aumenta, también tendrán acceso a los archivos de forma segura. 
+El **EFS (Elastic File System)**, describe los recursos con sus puntos de montaje asociados en cada subred. Esto permite compartir los archivos almacenados y escalar a necesidad. Estos archivos son accesibles desde ambas instancias EC2 en la misma VPC. Si la cantidad de instancias EC2 aumenta, también tendrán acceso a los archivos de forma segura.   
 
-Archivo **variables.tf**, contiene las variables allí definidas que aplican al directorio modules. Con esta parametrizacion se logra flexibilidad para personalizar y reutilizar la infraestructura a necesidad. 
+Archivo **variables.tf**, contiene las variables de input allí definidas que aplican al directorio modules. Con esta parametrizacion se logra flexibilidad para personalizar y reutilizar la infraestructura a necesidad. 
 
 Dentro de **modules**, también se encuentra el directorio *docker-compose**, el cual contiene todos los microservicios que serán desplegados por docker-compose.
 
@@ -103,11 +106,13 @@ Dentro de **modules**, también se encuentra el directorio *docker-compose**, el
 **4-**	Los archivos de Docker son en texto plano y se pueden compartir fácilmente, en cambio los archivos de un despliegue de Kubernetes son almacenados en sus manifiestos que     
     utilizan un formato más complejo.
     
-**Docker-compose** contiene todos los servicios mencionados en la arquitectura del documento más arriba. Dentro de cada servicio hay un archivo que es importante, el **Dockerfile**. Contiene datos sensibles porque se usa para crear imágenes, para instalar software, copiar archivos y hasta configuraciones. Todo lo que se quiera modificar o actualizar se va a hacer desde este archivo.
+**Docker-compose** contiene todos los servicios mencionados en la arquitectura del documento más arriba. Dentro de cada servicio hay un archivo que es importante, el **Dockerfile**. Contiene datos sensibles porque se usa para crear imágenes, para instalar software, copiar archivos y hasta configuraciones. Todo lo que se quiera modificar o actualizar se va a hacer desde este archivo. 
 
 El otro archivo es **docker-compose.yml**, en la estructura esta fuera de todos los servicios. Es el archivo de configuración utilizado por Docker-compose. En el archivo se describieron los servicios, redes y volúmenes necesarios pare ejecutar la aplicación en este proyecto el cual está compuesto por varios contenedores de Docker. Todos los servicios deben estar presentes en este archivo con detalles de los puertos expuestos, los volúmenes con el path, dependencias y otras configuraciones específicas del servicio. Cuando se ejecute el docker-compose, este archivo va a ser leído para saber dónde levantar las imágenes de cada servicio, para lo cual el path de cada servicio va a apuntar hacia su dockerfile. Este path debe estar correctamente ingresado, de lo contrario se obtendrá un error por respuesta. 
-**ELABORAR DETALLES DEL DESPLIEGUE DE LOS MICRO-SERVICIOS**
 
+Finalmente para desplegar la infraestructura con este codigo se debe tener presente lo siguente:
+**1-** En AWS se debe tener una cuenta, AWS cli instalado, credenciales en ./aws/credentials y la clave SSH en formato .pem, guardado para ser utilizado con frecuencia en la ejecución del código.
+**2-** Tener Terraform instalado
 **Nota** Para la implementación de este proyecto no se realizó el almacenamiento de estado remoto. La razón fue evitar perder tiempo en una configuración que, si bien proporciona seguridad y es lo correcto, llevaria tiempo que se prefirió invertir en el proyecto mismo ya que habria que crear otro proyecto separado. Se entiende que en la vida real el método a usar debería ser configurando el almacenamiento de estado remoto.
 
 La documentacion usada durante el proyecto fue la sigueiente:
