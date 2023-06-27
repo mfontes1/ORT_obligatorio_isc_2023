@@ -78,6 +78,12 @@ services:
     ports:
       - 3550:3550
 
+  payment-service:
+    build:
+      context: ./paymentservice
+      dockerfile: Dockerfile
+  
+
 
 
 
