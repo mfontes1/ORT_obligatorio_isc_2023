@@ -108,3 +108,9 @@ Dentro de **modules**, también se encuentra el directorio *docker-compose**, el
 El otro archivo es **docker-compose.yml**, en la estructura esta fuera de todos los servicios. Es el archivo de configuración utilizado por Docker-compose. En el archivo se describieron los servicios, redes y volúmenes necesarios pare ejecutar la aplicación en este proyecto el cual está compuesto por varios contenedores de Docker. Todos los servicios deben estar presentes en este archivo con detalles de los puertos expuestos, los volúmenes con el path, dependencias y otras configuraciones específicas del servicio. Cuando se ejecute el docker-compose, este archivo va a ser leído para saber dónde levantar las imágenes de cada servicio, para lo cual el path de cada servicio va a apuntar hacia su dockerfile. Este path debe estar correctamente ingresado, de lo contrario se obtendrá un error por respuesta. 
 **ELABORAR DETALLES DEL DESPLIEGUE DE LOS MICRO-SERVICIOS**
 
+**Nota** Para la implementación de este proyecto no se realizó el almacenamiento de estado remoto. La razón fue evitar perder tiempo en una configuración que, si bien proporciona seguridad y es lo correcto, llevaria tiempo que se prefirió invertir en el proyecto mismo ya que habria que crear otro proyecto separado. Se entiende que en la vida real el método a usar debería ser configurando el almacenamiento de estado remoto.
+
+La documentacion usada durante el proyecto fue la sigueiente:
+1- Grabaciones de las clases
+2- Presentaciones usadas en la clase
+3- Terraform docs
