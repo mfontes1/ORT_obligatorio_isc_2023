@@ -1,4 +1,4 @@
-
+# Se crea la instancia web1 y web2
 
 resource "aws_instance" "module-web1-instance-deploy" {
     instance_type          = var.instance_type
@@ -7,6 +7,7 @@ resource "aws_instance" "module-web1-instance-deploy" {
     vpc_security_group_ids = [aws_security_group.web-SG.id,aws_security_group.efs-sg.id]
     subnet_id              = aws_subnet.pub_subnet1_obligatorio.id
     availability_zone      = var.vpc_aws_az
+    # se aumenta la capacidad del storage para despliegue de servicios
     root_block_device {
     volume_size = 50 
     } 
