@@ -9,9 +9,9 @@ resource "aws_efs_file_system" "efs-server" {
     Name = "obligatorio-efs"
   }
 }
-data "aws_availability_zones" "available" {
-  state = "available"
-}
+#data "aws_availability_zones" "available" {
+#  state = "available"
+#}
 # se habilita el punto de montaje para las dos AZ
 resource "aws_efs_mount_target" "shared-nfs1" {
 #  count           = length(data.aws_availability_zones.available.names)
