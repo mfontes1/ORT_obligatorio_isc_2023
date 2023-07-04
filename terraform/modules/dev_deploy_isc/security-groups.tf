@@ -8,6 +8,12 @@ resource "aws_security_group" "web-SG" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   ingress {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "TCP"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
     from_port   = 80
     to_port     = 80
     protocol    = "TCP"
@@ -30,7 +36,13 @@ resource "aws_security_group" "web_lb_sg" {
   ingress {
     from_port   = 80
     to_port     = 80
-    protocol    = "tcp"
+    protocol    = "TCP"
+    cidr_blocks = ["0.0.0.0/16"]
+  }
+  ingress {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "TCP"
     cidr_blocks = ["0.0.0.0/16"]
   }
   egress {
@@ -52,7 +64,7 @@ resource "aws_security_group" "efs-sg" {
   ingress {
     from_port   = 2049
     to_port     = 2049
-    protocol    = "tcp"
+    protocol    = "TCP"
     cidr_blocks = ["10.0.0.0/16"]  
   }
 

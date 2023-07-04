@@ -10,7 +10,7 @@ services:
   redis:
     image: redis:latest
     ports:
-         - 6379:6379
+      - 6379:6379
     volumes:
       - redis-data:/data
     command: redis-server --appendonly yes  
@@ -24,12 +24,20 @@ services:
     build:
       context: ./cartservice/src
       dockerfile: Dockerfile
+    environment:
+      REDIS_ADDR: ${REDIS_ADDR}
     
   checkout-service:
     build:
       context: ./checkoutservice
       dockerfile: Dockerfile
-   
+    environment:
+      PRODUCT_CATALOG_SERVICE_ADDR: ${PRODUCT_CATALOG_SERVICE}
+      CURRENCY_SERVICE_ADDR: ${CURRENCY_SERVICE}
+      CART_SERVICE_ADDR: ${CART_SERVICE}
+      SHIPPING_SERVICE_ADDR: ${SHIPPING_SERVICE}
+      PAYMENT_SERVICE_ADDR: ${PAYMENT_SERVICE}
+      EMAIL_SERVICE_ADDR: ${EMAIL_SERVICE}
 
   email-server:
     build:
@@ -48,19 +56,36 @@ services:
     ports:
       - 8080:8080
     environment:
-      - PRODUCT_CATALOG_SERVICE_ADDR=docker-compose-product-catalog-service:3550
-      - CURRENCY_SERVICE_ADDR=docker-compose-currency-service:7000
+      PRODUCT_CATALOG_SERVICE_ADDR: ${PRODUCT_CATALOG_SERVICE}
+      CURRENCY_SERVICE_ADDR: ${CURRENCY_SERVICE}
+      CART_SERVICE_ADDR: ${CART_SERVICE}
+      RECOMMENDATION_SERVICE_ADDR: ${RECOMMENDATION_SERVICE}
+      SHIPPING_SERVICE_ADDR: ${SHIPPING_SERVICE}
+      CHECKOUT_SERVICE_ADDR: ${CHECKOUT_SERVICE}
+      AD_SERVICE_ADDR: ${AD_SERVICE}
+      ENV_PLATFORM: ${ENV_PLATFORM} 
   
   currency-service:
     build:
       context: ./currencyservice
       dockerfile: Dockerfile
-  
+    ports:
+      - 7000:7000
+    environment:
+      PORT: ${CURRENCY_PORT}
+      DISABLE_DEBUGGER: ${DISABLE_DEBUGGER}
+      DISABLE_PROFILER: ${DISABLE_PROFILER}
+      DISABLE_TRACING: ${DISABLE_TRACING}  
 
   recommendation-service:
     build:
       context: ./recommendationservice
       dockerfile: Dockerfile
+    environment:
+      PRODUCT_CATALOG_SERVICE_ADDR: ${PRODUCT_CATALOG_SERVICE}
+      DISABLE_DEBUGGER: ${DISABLE_DEBUGGER}
+      DISABLE_PROFILER: ${DISABLE_PROFILER}
+      DISABLE_TRACING: ${DISABLE_TRACING}
    
   shipping-service:
     build:
@@ -77,17 +102,8 @@ services:
     build:
       context: ./paymentservice
       dockerfile: Dockerfile
-# el servicio load_generator fue removido por sugerencia del profesor  
-
-
-
-
-
-
-
-
-
-
-
-
-    
+    environment:
+      PORT: ${PAYMENT_PORT}
+      DISABLE_DEBUGGER: ${DISABLE_DEBUGGER}
+      DISABLE_PROFILER: ${DISABLE_PROFILER}
+      DISABLE_TRACING: ${DISABLE_TRACING}
