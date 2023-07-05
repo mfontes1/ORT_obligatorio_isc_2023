@@ -92,10 +92,10 @@ services:
       context: ./shippingservice
       dockerfile: Dockerfile
     environment:
-      PORT: ${SHIPPING_PORT}
-      DISABLE_STATS: ${DISABLE_STATS}
-      DISABLE_TRACING: ${DISABLE_TRACING}
-      DISABLE_PROFILER: ${DISABLE_PROFILER}
+       PORT: ${SHIPPING_PORT}
+  #    DISABLE_STATS: ${DISABLE_STATS}
+  #    DISABLE_TRACING: ${DISABLE_TRACING}
+  #    DISABLE_PROFILER: ${DISABLE_PROFILER}
 
    
   product-catalog-service:
